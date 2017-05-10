@@ -12,18 +12,25 @@
  */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import RECASTAI from 'recastai'
 =======
 const RECASTAI = require('recastai').default
 >>>>>>> 5e01f73... test conv
+=======
+import RECASTAI from 'recastai'
+>>>>>>> 0e449a2... full es6 ready
 
 import replyMessage from './message'
 
 // Instantiate Recast.AI SDK
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const client = new RECASTAI(process.env.REQUEST_TOKEN)
 >>>>>>> 5e01f73... test conv
+=======
+>>>>>>> 0e449a2... full es6 ready
 
 /*
  * Main bot function
@@ -32,7 +39,15 @@ const client = new RECASTAI(process.env.REQUEST_TOKEN)
  * - response: Response of your server (can be a blank object if not needed: {})
  * - callback: Callback is a function called by Recast.AI hosting system when your code will be hosted
  */
+<<<<<<< HEAD
+<<<<<<< HEAD
 export const bot = (body, response, callback) => {
+=======
+const bot = (body, response, callback) => {
+>>>>>>> 0e449a2... full es6 ready
+=======
+export const bot = (body, response, callback) => {
+>>>>>>> 941baf8... repair bot
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
   if (body.message) {
     /*
@@ -61,6 +76,14 @@ export const bot = (body, response, callback) => {
       .then((res) => {
         if (res.reply()) {
           console.log(res)
+          // const db = admin.database()
+          // const ref = db.ref('/users')
+          // ref.push({
+          //   username: 'test',
+          //   email: 'test@mail.com'})
+          // ref.once('value', (snapshot) => {
+          //   console.log(snapshot.val())
+          // })
           callback(null, {
             reply: res.reply(),
             conversationToken: res.conversationToken

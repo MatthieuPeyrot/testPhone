@@ -11,12 +11,12 @@
  * You might modify the server port ^^^^  depending on your configuration in config.js file
  */
 
-const express = require('express')
-const bodyParser = require('body-parser')
-var request = require('superagent')
+import express from 'express'
+import bodyParser from 'body-parser'
+import su from 'superagent'
+import {bot} from './bot'
 
 require('./config')
-const bot = require('./bot').bot
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -40,7 +40,7 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), () => {
-    // request
+    // su
     //   .post(`https://api.recast.ai/connect/v1/conversations/${'6144ad24-802f-4890-9df1-f45debc32c01'}/messages`)
     //   .send({ messages: [{ type: 'text', content: 'Hello, world!' }] })
     //   .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
