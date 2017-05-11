@@ -111,6 +111,7 @@ console.log(message)
     } else {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       if (result.action.slug === 'non') {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
@@ -141,6 +142,21 @@ console.log(message)
               {
                 title: 'Non',
                 value: 'non'
+=======
+      if (result.action.slug === 'no') {
+        result.replies.forEach(replyContent => message.addReply({
+          type: 'quickReplies',
+          content: {
+            title: 'Prosition de test',
+            buttons: [
+              {
+                title: 'Oui',
+                value: 'Test1'
+              },
+              {
+                title: 'Non',
+                value: 'Test2'
+>>>>>>> 54ca889... test button
               }
             ]
           }
@@ -149,6 +165,7 @@ console.log(message)
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
+<<<<<<< HEAD
             title: 'Préférez vous être contacté par Messenger ou notre app?',
             buttons: [
               {
@@ -158,6 +175,17 @@ console.log(message)
               {
                 title: 'Voxist',
                 value: 'voxist'
+=======
+            title: 'Préférence de Contact',
+            buttons: [
+              {
+                title: 'Messenger',
+                value: 'messenger'
+              },
+              {
+                title: 'Voxist',
+                value: 'app'
+>>>>>>> 54ca889... test button
               }
             ]
           }
@@ -165,6 +193,7 @@ console.log(message)
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
+<<<<<<< HEAD
 =======
       // Add each reply received from API to replies stack
 <<<<<<< HEAD
@@ -175,6 +204,8 @@ console.log(message)
 >>>>>>> 5e01f73... test conv
       result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
 >>>>>>> af95b3f... text
+=======
+>>>>>>> 54ca889... test button
     }
 
     message.reply()

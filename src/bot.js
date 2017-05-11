@@ -76,14 +76,6 @@ export const bot = (body, response, callback) => {
       .then((res) => {
         if (res.reply()) {
           console.log(res)
-          // const db = admin.database()
-          // const ref = db.ref('/users')
-          // ref.push({
-          //   username: 'test',
-          //   email: 'test@mail.com'})
-          // ref.once('value', (snapshot) => {
-          //   console.log(snapshot.val())
-          // })
           callback(null, {
             reply: res.reply(),
             conversationToken: res.conversationToken
