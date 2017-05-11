@@ -54,23 +54,23 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      // } else if (result.action.slug === 'bonjour') {
-      //   result.replies.forEach(replyContent => message.addReply({
-      //     type: 'quickReplies',
-      //     content: {
-      //       title: 'Bonjour! Etes vous déjà client chez Voxist?',
-      //       buttons: [
-      //         {
-      //           title: 'Oui',
-      //           value: 'oui'
-      //         },
-      //         {
-      //           title: 'Non',
-      //           value: 'non'
-      //         }
-      //       ]
-      //     }
-      //   }))
+      } else if (result.action.slug === 'bonjour') {
+        result.replies.forEach(replyContent => message.addReply({
+          type: 'quickReplies',
+          content: {
+            title: 'Bonjour! Etes vous déjà client chez Voxist?',
+            buttons: [
+              {
+                title: 'Oui',
+                value: 'oui'
+              },
+              {
+                title: 'Non',
+                value: 'non'
+              }
+            ]
+          }
+        }))
       } else if (result.action.slug === 'phone' && result.replies[0] === 'merci je cherche') {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
