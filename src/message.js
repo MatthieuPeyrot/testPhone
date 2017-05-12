@@ -6,6 +6,18 @@
 import RECASTAI from 'recastai'
 import mysql from 'mysql'
 
+function Query (connection, num) {
+  return new Promise((resolve, reject) => {
+    connection.query('SELECT uuid WHERE phone = ? FROM Phones', num, (error, results, fields) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(results)
+      }
+    })
+  })
+}
+
 const replyMessage = (message) => {
   const connection = mysql.createConnection(process.env.SQL_HOST)
   // Instantiate Recast.AI SDK, just for request service
@@ -76,11 +88,7 @@ const replyMessage = (message) => {
       } else if (result.action.slug === 'phone') {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = text.replace(/0/, '+33')
-          connection.query('SELECT uuid WHERE phone = ? FROM Phones', num, (error, results, fields) => {
-            if (error) {
-              console.log(error)
-              result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
-            }
+          Query(connection, num).then(results => {
             if (results) {
               console.log(results)
               result.replies.forEach(replyContent => message.addReply({
@@ -118,8 +126,11 @@ const replyMessage = (message) => {
                 }
               }))
             }
+            connection.destroy()
+          }).catch(e => {
+            console.log(e)
+            result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
           })
-          connection.destroy()
         } else {
           console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
