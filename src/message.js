@@ -119,6 +119,7 @@ const replyMessage = (message) => {
               }))
             }
           })
+          connection.destroy()
         } else {
           console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
