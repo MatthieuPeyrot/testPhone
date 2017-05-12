@@ -41,8 +41,8 @@ if (!process.env.REQUEST_TOKEN.length) {
 } else {
   app.listen(app.get('port'), () => {
     // su
-    //   .post(`https://api.recast.ai/connect/v1/conversations/${'6144ad24-802f-4890-9df1-f45debc32c01'}/messages`)
-    //   .send({ messages: [{ type: 'text', content: 'Hello, world!' }] })
+    //   .delete(`https://api.recast.ai/v2/converse`)
+    //   .send({ conversation_token: '1696871486992920' })
     //   .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
     //   .end((err, res) => {
     //     if (err) console.log(err)
