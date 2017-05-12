@@ -123,7 +123,6 @@ const replyMessage = (message) => {
               }))
             }
           })
-          connection.destroy()
         } else {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
         }
