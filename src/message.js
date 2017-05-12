@@ -8,7 +8,7 @@ import mysql from 'mysql'
 
 function Query (connection, num) {
   return new Promise((resolve, reject) => {
-    connection.query('SELECT uuid WHERE phone = ? FROM Phones', num, (error, results, fields) => {
+    connection.query('SELECT uuid WHERE phone = ? FROM Phones', [num], (error, results, fields) => {
       if (error) {
         reject(error)
       } else {

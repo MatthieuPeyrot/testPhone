@@ -49,14 +49,14 @@ if (!process.env.REQUEST_TOKEN.length) {
   //       console.log(results)
   //     }
   //   })
-    // su
-    //   .delete(`https://api.recast.ai/v2/converse`)
-    //   .send({ conversation_token: '1696871486992920' })
-    //   .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
-    //   .end((err, res) => {
-    //     if (err) console.log(err)
-    //     console.log(res.body)
-    //   })
+    su
+      .delete(`https://api.recast.ai/v2/converse`)
+      .send({ conversation_token: '1696871486992920' })
+      .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
+      .end((err, res) => {
+        if (err) console.log(err)
+        console.log(res.body)
+      })
     console.log('Our bot is running on port', app.get('port'))
   })
 }
