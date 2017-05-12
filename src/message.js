@@ -8,7 +8,7 @@ import mysql from 'mysql'
 
 function Query (connection, num) {
   return new Promise((resolve, reject) => {
-    connection.query('SELECT uuid WHERE phone = ? FROM Phones', [num], (error, results, fields) => {
+    connection.query('SELECT uuid FROM Phones WHERE phone = ?', num, (error, results, fields) => {
       if (error) {
         reject(error)
       } else {
@@ -89,7 +89,7 @@ const replyMessage = (message) => {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = text.replace(/0/, '+33')
           Query(connection, num).then(results => {
-            if (results) {
+            if (results && results.length) {
               console.log(results)
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
