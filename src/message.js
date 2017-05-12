@@ -84,10 +84,11 @@ const replyMessage = (message) => {
           var num = text.replace(/0/, '+33')
           connection.query(`SELECT uuid WHERE phone = ${num} FROM Phones`, function (error, results, fields) {
             if (error) {
-              console.error(error)
+              console.log(error)
               result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
             }
             if (results) {
+              console.log(results)
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
@@ -105,6 +106,7 @@ const replyMessage = (message) => {
                 }
               }))
             } else {
+              console.log('no results')
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
@@ -124,6 +126,7 @@ const replyMessage = (message) => {
             }
           })
         } else {
+          console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
         }
       } else {
