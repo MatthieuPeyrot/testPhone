@@ -6,14 +6,8 @@
 import RECASTAI from 'recastai'
 import mysql from 'mysql'
 
-var connection = mysql.createConnection({
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_LOGIN,
-  password: process.env.SQL_PASS,
-  database: 'data'
-})
-
 const replyMessage = (message) => {
+  const connection = mysql.createConnection(process.env.SQL_HOST)
   // Instantiate Recast.AI SDK, just for request service
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
 

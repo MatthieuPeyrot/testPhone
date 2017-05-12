@@ -19,12 +19,7 @@ import mysql from 'mysql'
 
 require('./config')
 
-const connection = mysql.createConnection({
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_LOGIN,
-  password: process.env.SQL_PASS,
-  database: 'data'
-})
+const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -48,19 +43,19 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), () => {
-    // connection.query('SELECT * FROM Phones', function (error, results, fields) {
-    //   if (error) console.error(error)
-    //   if (results) {
-    //     console.log(results)
-    //   }
-    // })
+  //   connection.query('SELECT * FROM Phones', function (error, results, fields) {
+  //     if (error) console.error(error)
+  //     if (results) {
+  //       console.log(results)
+  //     }
+  //   })
     // su
     //   .delete(`https://api.recast.ai/v2/converse`)
     //   .send({ conversation_token: '1696871486992920' })
     //   .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
     //   .end((err, res) => {
     //     if (err) console.log(err)
-    //     console.log(res)
+    //     console.log(res.body)
     //   })
     console.log('Our bot is running on port', app.get('port'))
   })
