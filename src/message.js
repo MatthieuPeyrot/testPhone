@@ -76,7 +76,7 @@ const replyMessage = (message) => {
       } else if (result.action.slug === 'phone') {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = text.replace(/0/, '+33')
-          connection.query(`SELECT uuid WHERE phone = ${num} FROM Phones`, function (error, results, fields) {
+          connection.query('SELECT uuid WHERE phone = ? FROM Phones', num, (error, results, fields) => {
             if (error) {
               console.log(error)
               result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
