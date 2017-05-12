@@ -4,6 +4,14 @@
  */
 
 import RECASTAI from 'recastai'
+import mysql from 'mysql'
+
+var connection = mysql.createConnection({
+  host: process.env.SQL_HOST,
+  user: process.env.SQL_LOGIN,
+  password: process.env.SQL_PASS,
+  database: 'data'
+})
 
 const replyMessage = (message) => {
   // Instantiate Recast.AI SDK, just for request service
@@ -71,23 +79,53 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action.slug === 'phone' && result.replies[0] === 'merci je cherche') {
-        result.replies.forEach(replyContent => message.addReply({
-          type: 'quickReplies',
-          content: {
-            title: 'Préférez vous être contacté par Messenger ou notre app?',
-            buttons: [
-              {
-                title: 'Messenger',
-                value: 'facebook'
-              },
-              {
-                title: 'Voxist',
-                value: 'voxist'
-              }
-            ]
-          }
-        }))
+      } else if (result.action.slug === 'phone') {
+        if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
+          var num = text.replace(/0/, '+33')
+          connection.query(`SELECT uuid WHERE phone = ${num} FROM Phones`, function (error, results, fields) {
+            if (error) {
+              console.error(error)
+              result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
+            }
+            if (results) {
+              result.replies.forEach(replyContent => message.addReply({
+                type: 'quickReplies',
+                content: {
+                  title: 'Préférez vous être contacté par Messenger ou notre app?',
+                  buttons: [
+                    {
+                      title: 'Messenger',
+                      value: 'facebook'
+                    },
+                    {
+                      title: 'Voxist',
+                      value: 'voxist'
+                    }
+                  ]
+                }
+              }))
+            } else {
+              result.replies.forEach(replyContent => message.addReply({
+                type: 'quickReplies',
+                content: {
+                  title: 'Nous n\'avons pas trouvez votre numéro. Voulez vous testez Voxist?',
+                  buttons: [
+                    {
+                      title: 'Oui',
+                      value: 'test1'
+                    },
+                    {
+                      title: 'Non',
+                      value: 'test2'
+                    }
+                  ]
+                }
+              }))
+            }
+          })
+        } else {
+          result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
+        }
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }

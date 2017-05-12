@@ -15,8 +15,16 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import su from 'superagent'
 import {bot} from './bot'
+import mysql from 'mysql'
 
 require('./config')
+
+const connection = mysql.createConnection({
+  host: process.env.SQL_HOST,
+  user: process.env.SQL_LOGIN,
+  password: process.env.SQL_PASS,
+  database: 'data'
+})
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -40,6 +48,12 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), () => {
+    // connection.query('SELECT * FROM Phones', function (error, results, fields) {
+    //   if (error) console.error(error)
+    //   if (results) {
+    //     console.log(results)
+    //   }
+    // })
     // su
     //   .delete(`https://api.recast.ai/v2/converse`)
     //   .send({ conversation_token: '1696871486992920' })
