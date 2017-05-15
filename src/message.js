@@ -95,7 +95,7 @@ const replyMessage = (message) => {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = null
           try {
-            var num = phoneUtil.format(phoneUtil.parse(text, 'fr'), PNF.E164)
+            num = phoneUtil.format(phoneUtil.parse(text, 'fr'), PNF.E164)
           } catch (e) {
             console.log('no matching')
             result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
