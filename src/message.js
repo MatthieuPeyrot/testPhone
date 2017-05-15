@@ -37,6 +37,7 @@ const replyMessage = (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
+    console.log(result.replies.length)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
