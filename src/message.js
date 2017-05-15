@@ -36,7 +36,7 @@ const replyMessage = (message) => {
   // Call Recast.AI SDK, through /converse route
 
   request.converseText(text, { conversationToken: senderId })
-  .then(result => {
+  .then(async result => {
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
@@ -88,9 +88,10 @@ const replyMessage = (message) => {
       } else if (result.action.slug === 'phone') {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = text.replace(/0/, '+33')
-          Query(connection, num).then(results => {
-            if (results && results.length) {
-              console.log(results)
+          try {
+            var numRes = await Query(connection, num)
+            if (numRes && numRes.length) {
+              console.log(numRes)
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
@@ -127,10 +128,10 @@ const replyMessage = (message) => {
               }))
             }
             connection.destroy()
-          }).catch(e => {
+          } catch (e) {
             console.log(e)
             result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
-          })
+          }
         } else {
           console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
