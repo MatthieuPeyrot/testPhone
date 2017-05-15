@@ -92,7 +92,7 @@ const replyMessage = (message) => {
           }
         }))
       } else if (result.action && result.action.slug === 'phone') {
-        if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
+        if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
           var num = null
           try {
             num = phoneUtil.format(phoneUtil.parse(text, 'fr'), PNF.E164)
