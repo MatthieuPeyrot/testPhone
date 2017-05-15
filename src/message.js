@@ -37,7 +37,7 @@ const replyMessage = (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
-    while (result.replies.length > 1) {
+    while (result.action && result.action.slug && (result.action.slug !== 'oui' && result.action.slug !== 'non') && result.replies.length > 1) {
       result.replies.pop()
     }
     console.log(result.replies.length)
