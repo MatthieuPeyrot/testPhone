@@ -154,7 +154,7 @@ const replyMessage = (message) => {
             type: 'card',
             content: {
               title: 'Contactez Voxist pour tester notre app',
-              subtitle: 'Ceci va lancer un appel vocal vers le +33761391453 appuyer ici si le bouton ne marche pas',
+              subtitle: 'Ceci va lancer un appel vocal vers le \+33761391453 appuyer ici si le bouton ne marche pas',
               imageUrl: 'http://www.voxist.fr/wp-content/themes/voxist/images/logo.svg',
               buttons: [
                 {
