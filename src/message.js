@@ -148,6 +148,26 @@ const replyMessage = (message) => {
           console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
         }
+      } else if (result.action.slug === 'testservice') {
+        if (text.toLocaleLowerCase() === 'test1') {
+          result.replies.forEach(replyContent => message.addReply({
+            type: 'card',
+            content: {
+              title: 'Contactez Voxist pour tester notre app',
+              subtitle: 'Ceci va lancer un appel vocal',
+              imageUrl: 'http://www.voxist.fr/wp-content/themes/voxist/images/logo_paysage_blanc.png',
+              buttons: [
+                {
+                  title: 'Appeler',
+                  type: 'phone_number',
+                  value: '+33761391453'
+                }
+              ]
+            }
+          }))
+        } else {
+          result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
+        }
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
