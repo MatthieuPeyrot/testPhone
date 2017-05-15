@@ -155,7 +155,8 @@ const replyMessage = (message) => {
             content: {
               title: 'Contactez Voxist pour tester notre app',
               subtitle: 'Ceci va lancer un appel vocal vers le <tel://33-7-61-39-14-53|Appeler> appuyer ici si le bouton ne marche pas',
-              imageUrl: 'http://www.voxist.fr/wp-content/themes/voxist/images/logo.svg',
+              // subtitle: 'Ceci va lancer un appel vocal',
+              imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
               buttons: [
                 {
                   title: 'Appeler',
