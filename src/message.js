@@ -154,8 +154,7 @@ const replyMessage = (message) => {
             type: 'card',
             content: {
               title: 'Contactez Voxist pour tester notre app',
-              subtitle: 'Ceci va lancer un appel vocal vers le <tel://33-7-61-39-14-53|Appeler> appuyer ici si le bouton ne marche pas',
-              // subtitle: 'Ceci va lancer un appel vocal',
+              subtitle: 'Ceci va lancer un appel vocal',
               imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
               buttons: [
                 {
@@ -169,6 +168,8 @@ const replyMessage = (message) => {
         } else {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
         }
+      } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
+        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels système veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
