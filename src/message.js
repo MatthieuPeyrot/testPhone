@@ -37,6 +37,9 @@ const replyMessage = (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
+    while (result.replies.length > 1) {
+      result.replies.pop()
+    }
     console.log(result.replies.length)
     /*
     * YOUR OWN CODE
