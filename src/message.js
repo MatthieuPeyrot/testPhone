@@ -57,7 +57,7 @@ const replyMessage = (message) => {
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
     } else {
-      if (result.action.slug === 'non') {
+      if (result.action && result.action.slug === 'non') {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
@@ -74,7 +74,7 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action.slug === 'bonjour') {
+      } else if (result.action && result.action.slug === 'bonjour') {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
@@ -91,7 +91,7 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action.slug === 'phone') {
+      } else if (result.action && result.action.slug === 'phone') {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
           var num = null
           try {
@@ -148,7 +148,7 @@ const replyMessage = (message) => {
           console.log('no matching')
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
         }
-      } else if (result.action.slug === 'testservice') {
+      } else if (result.action && result.action.slug === 'testservice') {
         if (text.toLocaleLowerCase() === 'test1') {
           result.replies.forEach(replyContent => message.addReply({
             type: 'card',
