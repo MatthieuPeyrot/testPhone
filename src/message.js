@@ -5,6 +5,8 @@
 
 import RECASTAI from 'recastai'
 import mysql from 'mysql'
+const PNF = require('google-libphonenumber').PhoneNumberFormat
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 function Query (connection, num) {
   return new Promise((resolve, reject) => {
@@ -37,7 +39,7 @@ const replyMessage = (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
-    while (result.action && result.action.slug && (result.action.slug !== 'oui' && result.action.slug !== 'non') && result.replies.length > 1) {
+    while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
       result.replies.pop()
     }
     console.log(result.replies.length)
@@ -91,7 +93,13 @@ const replyMessage = (message) => {
         }))
       } else if (result.action.slug === 'phone') {
         if (text[0] === '0' && /[0-9]{10,10}/g.test(text)) {
-          var num = text.replace(/0/, '+33')
+          var num = null
+          try {
+            var num = phoneUtil.format(phoneUtil.parse(text, 'fr'), PNF.E164)
+          } catch (e) {
+            console.log('no matching')
+            result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
+          }
           try {
             var numRes = await Query(connection, num)
             if (numRes && numRes.length) {
