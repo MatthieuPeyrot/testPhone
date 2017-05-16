@@ -4,22 +4,8 @@
  */
 
 import RECASTAI from 'recastai'
-import mysql from 'mysql'
 import su from 'superagent'
-const PNF = require('google-libphonenumber').PhoneNumberFormat
-const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
-
-function Query (connection, num) {
-  return new Promise((resolve, reject) => {
-    connection.query('SELECT uuid FROM Phones WHERE phone = ?', num, (error, results, fields) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(results)
-      }
-    })
-  })
-}
+import {frenchReply, englishReply} from './langue'
 
 function GetFBInfo (userId, FB) {
   return new Promise((resolve, reject) => {
@@ -39,7 +25,6 @@ function GetFBInfo (userId, FB) {
 }
 
 const replyMessage = async (message) => {
-  const connection = mysql.createConnection(process.env.SQL_HOST)
   // Instantiate Recast.AI SDK, just for request service
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
 
@@ -71,9 +56,11 @@ const replyMessage = async (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
-    while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
-      result.replies.pop()
-    }
+    // while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
+    //   result.replies.pop()
+    // }
+    console.log(result.replies.length)
+    const length = result.replies.length - 1
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
@@ -88,128 +75,18 @@ const replyMessage = async (message) => {
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
     } else {
-      if ((result.action && result.action.slug === 'non') || (result.entities && result.entities.non1)) {
-        result.replies.forEach(replyContent => message.addReply({
-          type: 'quickReplies',
-          content: {
-            title: 'Voulez vous testez Voxist?',
-            buttons: [
-              {
-                title: 'Oui',
-                value: 'test1'
-              },
-              {
-                title: 'Non',
-                value: 'test2'
-              }
-            ]
-          }
-        }))
-      } else if ((result.action && result.action.slug === 'bonjour') || (result.entities && result.entities.salutations)) {
-        result.replies.forEach(replyContent => message.addReply({
-          type: 'quickReplies',
-          content: {
-            title: 'Bonjour! Etes vous déjà client chez Voxist?',
-            buttons: [
-              {
-                title: 'Oui',
-                value: 'oui'
-              },
-              {
-                title: 'Non',
-                value: 'non'
-              }
-            ]
-          }
-        }))
-      } else if ((result.action && result.action.slug === 'phone') || (result.entities && result.entities.phone)) {
-        if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
-          var num = null
-          try {
-            num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'US'), PNF.E164)
-          } catch (e) {
-            console.log('no matching')
-            result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
-          }
-          try {
-            var numRes = await Query(connection, num)
-            if (numRes && numRes.length) {
-              console.log(numRes)
-              result.replies.forEach(replyContent => message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Préférez vous être contacté par Messenger ou notre app?',
-                  buttons: [
-                    {
-                      title: 'Messenger',
-                      value: 'facebook'
-                    },
-                    {
-                      title: 'Voxist',
-                      value: 'voxist'
-                    }
-                  ]
-                }
-              }))
-            } else {
-              console.log('no results')
-              result.replies.forEach(replyContent => message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Nous n\'avons pas trouvez votre numéro. Voulez vous testez Voxist?',
-                  buttons: [
-                    {
-                      title: 'Oui',
-                      value: 'test1'
-                    },
-                    {
-                      title: 'Non',
-                      value: 'test2'
-                    }
-                  ]
-                }
-              }))
-            }
-            connection.destroy()
-          } catch (e) {
-            console.log(e)
-            result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
-          }
-        } else {
-          console.log('no matching')
-          result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
-        }
-      } else if (result.action && result.action.slug === 'testservice') {
-        if (text.toLocaleLowerCase() === 'test1') {
-          if (isFB) {
-            result.replies.forEach(replyContent => message.addReply({
-              type: 'card',
-              content: {
-                title: 'Contactez Voxist pour tester notre app',
-                subtitle: 'Ceci va lancer un appel vocal',
-                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
-                buttons: [
-                  {
-                    title: 'Appeler',
-                    type: 'phone_number',
-                    value: '+33761391453'
-                  }
-                ]
-              }
-            }))
-          } else {
-            result.replies.forEach(replyContent => message.addReply({
-              type: 'text',
-              content: 'Contactez Voxist pour tester notre app. Appuyez <tel://33-7-61-39-14-53|ici> va lancer un appel vocal'
-            }))
-          }
-          //     {type: 'text', content: 'Votre application ne prend pas en charge les appels systême veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
-          // }
-        } else {
-          result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
+      if (message.language === 'fr') {
+        try {
+          message = await frenchReply(result, message, text, isFB, local, length)
+        } catch (e) {
+          message = message.addReply({ type: 'text', content: 'Une erreur est survenue, veuillez nous en excuser' })
         }
       } else {
-        result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
+        try {
+          message = await englishReply(result, message, text, isFB, local, length)
+        } catch (e) {
+          message = message.addReply({ type: 'text', content: 'An error has occurred, please excuse us' })
+        }
       }
     }
 
