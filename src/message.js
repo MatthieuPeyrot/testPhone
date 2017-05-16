@@ -78,7 +78,7 @@ const replyMessage = (message) => {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Bonjour! Etes vous d\U+00E9j\xE0 client chez Voxist?',
+            title: 'Bonjour! Etes vous d\u00e9j\u00e0 client chez Voxist?',
             buttons: [
               {
                 title: 'Oui',
@@ -107,7 +107,7 @@ const replyMessage = (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Pr\xE9f\xE9rez vous \xEAtre contact\xE9 par Messenger ou notre app?',
+                  title: 'Pr\u00e9f\u00e9rez vous \u00eatre contact\u00e9 par Messenger ou notre app?',
                   buttons: [
                     {
                       title: 'Messenger',
@@ -125,7 +125,7 @@ const replyMessage = (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Nous n\'avons pas trouvez votre num\xE9ro. Voulez vous testez Voxist?',
+                  title: 'Nous n\'avons pas trouvez votre num\u00e9ro. Voulez vous testez Voxist?',
                   buttons: [
                     {
                       title: 'Oui',
@@ -169,7 +169,7 @@ const replyMessage = (message) => {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
         }
       } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
-        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\xEAme veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
+        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
