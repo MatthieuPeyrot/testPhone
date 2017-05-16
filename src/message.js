@@ -56,7 +56,7 @@ const replyMessage = async (message) => {
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
-      local = FBquery.locale
+      local = FBquery.locale.replace(/\w+_/g, '')
       isFB = true
     }
   } catch (e) {
@@ -109,7 +109,7 @@ const replyMessage = async (message) => {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Bonjour! Etes vous d\u00e9j\u00e0 client chez Voxist?',
+            title: 'Bonjour! Etes vous déjà client chez Voxist?',
             buttons: [
               {
                 title: 'Oui',
@@ -126,7 +126,7 @@ const replyMessage = async (message) => {
         if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
           var num = null
           try {
-            num = phoneUtil.format(phoneUtil.parse(text, 'fr'), PNF.E164)
+            num = phoneUtil.format(phoneUtil.parse(text, isFB ? locale : 'US'), PNF.E164)
           } catch (e) {
             console.log('no matching')
             result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
@@ -138,7 +138,7 @@ const replyMessage = async (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Pr\u00e9f\u00e9rez vous \u00eatre contact\u00e9 par Messenger ou notre app?',
+                  title: 'Préférez vous être contacté par Messenger ou notre app?',
                   buttons: [
                     {
                       title: 'Messenger',
@@ -156,7 +156,7 @@ const replyMessage = async (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Nous n\'avons pas trouvez votre num\u00e9ro. Voulez vous testez Voxist?',
+                  title: 'Nous n\'avons pas trouvez votre numéro. Voulez vous testez Voxist?',
                   buttons: [
                     {
                       title: 'Oui',
@@ -202,25 +202,16 @@ const replyMessage = async (message) => {
               type: 'card',
               content: {
                 title: 'Contactez Voxist pour tester notre app',
-                subtitle: 'Ceci va lancer un appel vocal',
-                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
-                buttons: [
-                  {
-                    title: 'Appeler',
-                    type: 'phone_number',
-                    value: '<tel://33-7-61-39-14-53|Appeler>'
-                  }
-                ]
+                subtitle: 'Appuyez <tel://33-7-61-39-14-53|ici> va lancer un appel vocal',
+                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810'
               }
             }))
           }
-          //     {type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
+          //     {type: 'text', content: 'Votre application ne prend pas en charge les appels systême veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
           // }
         } else {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
         }
-      // } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
-      //   result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
