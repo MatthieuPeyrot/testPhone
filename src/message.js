@@ -26,9 +26,10 @@ function GetFBInfo (userId) {
     su.get('https://graph.facebook.com/v2.6/' + userId)
     .query({fields: 'first_name,last_name,locale,gender', access_token: process.env.FB})
     .end((err, res) => {
+      console.log('err: ', err)
       if (err) resolve(null)
       else {
-        console.log(res)
+        console.log('res: ', res)
         resolve(res)
       }
     })
