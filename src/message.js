@@ -126,7 +126,7 @@ const replyMessage = async (message) => {
         if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
           var num = null
           try {
-            num = phoneUtil.format(phoneUtil.parse(text, isFB ? locale : 'US'), PNF.E164)
+            num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'US'), PNF.E164)
           } catch (e) {
             console.log('no matching')
             result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
@@ -199,12 +199,8 @@ const replyMessage = async (message) => {
             }))
           } else {
             result.replies.forEach(replyContent => message.addReply({
-              type: 'card',
-              content: {
-                title: 'Contactez Voxist pour tester notre app',
-                subtitle: 'Appuyez <tel://33-7-61-39-14-53|ici> va lancer un appel vocal',
-                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810'
-              }
+              type: 'text',
+              content: 'Contactez Voxist pour tester notre app. Appuyez <tel://33-7-61-39-14-53|ici> va lancer un appel vocal'
             }))
           }
           //     {type: 'text', content: 'Votre application ne prend pas en charge les appels systême veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
