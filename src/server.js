@@ -26,7 +26,7 @@ app.set('port', process.env.PORT || 5000)
 app.use(bodyParser.json())
 
 app.use('/', (request, response) => {
-  bot(request.body, response, (error, success) => {
+  bot(request, response, (error, success) => {
     if (error) {
       console.log('Error in your bot:', error)
       if (!response.headersSent) { response.sendStatus(400) }
