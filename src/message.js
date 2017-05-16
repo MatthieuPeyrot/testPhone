@@ -38,16 +38,19 @@ const replyMessage = async (message) => {
 
   var isFB = false
   var local = null
+  var loacalLanguage = null
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
       local = FBquery.locale.replace(/\w+_/g, '')
+      loacalLanguage = FBquery.locale.replace(/_\w+/g, '')
       isFB = true
     }
   } catch (e) {
     isFB = false
   }
   console.log('isFB: ', isFB)
+  console.log('loacalLanguage: ', loacalLanguage)
 
   console.log('AppUserId: ', senderId)
 
@@ -75,7 +78,7 @@ const replyMessage = async (message) => {
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
     } else {
-      if (result.language === 'fr') {
+      if ((loacalLanguage && loacalLanguage === 'fr') || (result.language && result.language === 'fr' && !loacalLanguage)) {
         try {
           message = await frenchReply(result, message, text, isFB, local, length)
         } catch (e) {
