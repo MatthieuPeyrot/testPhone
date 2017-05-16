@@ -57,7 +57,7 @@ const replyMessage = (message) => {
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
     } else {
-      if (result.action && result.action.slug === 'non') {
+      if ((result.action && result.action.slug === 'non') || (result.entities && result.entities.non1)) {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
@@ -78,7 +78,7 @@ const replyMessage = (message) => {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Bonjour! Etes vous d\xE9j\xE0 client chez Voxist?',
+            title: 'Bonjour! Etes vous d\U+00E9j\xE0 client chez Voxist?',
             buttons: [
               {
                 title: 'Oui',
@@ -91,7 +91,7 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action && result.action.slug === 'phone') {
+      } else if ((result.action && result.action.slug === 'phone') || (result.entities && result.entities.phone)) {
         if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
           var num = null
           try {
