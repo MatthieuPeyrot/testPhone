@@ -29,7 +29,7 @@ function GetFBInfo (userId, FB) {
       if (err) resolve(null)
       else {
         // console.log('res: ', res.text)
-        resolve(res.text)
+        resolve(JSON.parse(res.text))
       }
     })
   })
