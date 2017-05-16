@@ -75,7 +75,7 @@ const replyMessage = async (message) => {
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
     } else {
-      if (message.language === 'fr') {
+      if (result.language === 'fr') {
         try {
           message = await frenchReply(result, message, text, isFB, local, length)
         } catch (e) {
