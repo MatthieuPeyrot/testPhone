@@ -42,8 +42,7 @@ const replyMessage = (message) => {
     while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
       result.replies.pop()
     }
-    console.log(result.entities)
-    console.log(result.entities.indexOf('salutations'))
+    console.log(result)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
@@ -75,11 +74,11 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action && (result.action.slug === 'bonjour' || (result.entities && result.entities.indexOf('salutations') > -1))) {
+      } else if (result.action && (result.action.slug === 'bonjour' || (result.entities && result.entities.salutations))) {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Bonjour! Etes vous déjà client chez Voxist?',
+            title: 'Bonjour! Etes vous d\éj\à client chez Voxist?',
             buttons: [
               {
                 title: 'Oui',
@@ -108,7 +107,7 @@ const replyMessage = (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Préférez vous être contacté par Messenger ou notre app?',
+                  title: 'Pr\éf\érez vous \être contact\é par Messenger ou notre app?',
                   buttons: [
                     {
                       title: 'Messenger',
@@ -126,7 +125,7 @@ const replyMessage = (message) => {
               result.replies.forEach(replyContent => message.addReply({
                 type: 'quickReplies',
                 content: {
-                  title: 'Nous n\'avons pas trouvez votre numéro. Voulez vous testez Voxist?',
+                  title: 'Nous n\'avons pas trouvez votre num\éro. Voulez vous testez Voxist?',
                   buttons: [
                     {
                       title: 'Oui',
@@ -170,7 +169,7 @@ const replyMessage = (message) => {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
         }
       } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
-        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels système veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
+        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\ême veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
