@@ -28,7 +28,7 @@ function GetFBInfo (userId, FB) {
     .end((err, res) => {
       if (err) resolve(null)
       else {
-        if (res.statuscode === 200) {
+        if (res.status === 200) {
           resolve(JSON.parse(res.text))
         } else {
           resolve(null)
