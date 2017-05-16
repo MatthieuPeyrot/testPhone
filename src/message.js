@@ -52,11 +52,15 @@ const replyMessage = async (message) => {
   var local = null
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
+    console.log(FBquery)
+    console.log(FBquery.first_name + ' ' + FBquery.last_name)
+    console.log(userName)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
       local = FBquery.locale
       isFB = true
     }
   } catch (e) {
+    console.log(e)
     isFB = false
   }
   console.log('isFB: ', isFB)
