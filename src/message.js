@@ -26,24 +26,9 @@ function GetFBInfo (userId, FB) {
     su.get('https://graph.facebook.com/v2.6/' + userId)
     .query({fields: 'first_name,last_name,locale,gender', access_token: FB})
     .end((err, res) => {
-      console.log('err: ', err)
       if (err) resolve(null)
       else {
         console.log('res: ', res.text)
-        resolve(res)
-      }
-    })
-  })
-}
-
-function GetFBInfo2 (userId, FB) {
-  return new Promise((resolve, reject) => {
-    su.get('https://graph.facebook.com/v2.6/' + userId + '?fields=first_name,last_name,locale,gender&access_token=' + FB)
-    .end((err, res) => {
-      console.log('err2: ', err)
-      if (err) resolve(null)
-      else {
-        console.log('res2: ', res.text)
         resolve(res)
       }
     })
@@ -67,7 +52,6 @@ const replyMessage = async (message) => {
   var local = null
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
-    const FBquery2 = await GetFBInfo2(senderId, process.env.PAGES)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
       local = FBquery.locale
       isFB = true
