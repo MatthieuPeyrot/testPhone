@@ -28,6 +28,8 @@ const replyMessage = (message) => {
   const request = client.request
   const text = message.content
 
+  console.log(message)
+
   console.log('I receive: ', text)
 
   const senderId = message.senderId
