@@ -5,6 +5,7 @@
 
 import RECASTAI from 'recastai'
 import mysql from 'mysql'
+import su from 'superagent'
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
@@ -20,7 +21,20 @@ function Query (connection, num) {
   })
 }
 
-const replyMessage = (message) => {
+function GetFBInfo (userId) {
+  return new Promise((resolve, reject) => {
+    su.get('https://graph.facebook.com/v2.6/' + userId)
+    .query({fields: 'first_name,last_name,locale,gender', access_token: process.env.FB})
+    .end((err, res) => {
+      if (err) resolve(null)
+      else {
+        resolve(res)
+      }
+    })
+  })
+}
+
+const replyMessage = async (message) => {
   const connection = mysql.createConnection(process.env.SQL_HOST)
   // Instantiate Recast.AI SDK, just for request service
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
@@ -28,13 +42,25 @@ const replyMessage = (message) => {
   const request = client.request
   const text = message.content
 
-  console.log(message)
-
   console.log('I receive: ', text)
 
   const senderId = message.senderId
+  const userName = message.message.data.userName
 
-  console.log('conversationId: ', senderId)
+  var isFB = false
+  var local = null
+  try {
+    const FBquery = await GetFBInfo(senderId)
+    if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
+      local = FBquery.locale
+      isFB = true
+    }
+  } catch (e) {
+    isFB = false
+  }
+  console.log('isFB: ', isFB)
+
+  console.log('AppUserId: ', senderId)
 
   console.log('conversationToken: ', message.conversationId)
   // Call Recast.AI SDK, through /converse route
@@ -151,26 +177,46 @@ const replyMessage = (message) => {
         }
       } else if (result.action && result.action.slug === 'testservice') {
         if (text.toLocaleLowerCase() === 'test1') {
-          result.replies.forEach(replyContent => message.addReply({
-            type: 'card',
-            content: {
-              title: 'Contactez Voxist pour tester notre app',
-              subtitle: 'Ceci va lancer un appel vocal',
-              imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
-              buttons: [
-                {
-                  title: 'Appeler',
-                  type: 'phone_number',
-                  value: '+33761391453'
-                }
-              ]
-            }
-          }))
+          if (isFB) {
+            result.replies.forEach(replyContent => message.addReply({
+              type: 'card',
+              content: {
+                title: 'Contactez Voxist pour tester notre app',
+                subtitle: 'Ceci va lancer un appel vocal',
+                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
+                buttons: [
+                  {
+                    title: 'Appeler',
+                    type: 'phone_number',
+                    value: '+33761391453'
+                  }
+                ]
+              }
+            }))
+          } else {
+            result.replies.forEach(replyContent => message.addReply({
+              type: 'card',
+              content: {
+                title: 'Contactez Voxist pour tester notre app',
+                subtitle: 'Ceci va lancer un appel vocal',
+                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
+                buttons: [
+                  {
+                    title: 'Appeler',
+                    type: 'phone_number',
+                    value: '<tel://33-7-61-39-14-53|Appeler>'
+                  }
+                ]
+              }
+            }))
+          }
+          //     {type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
+          // }
         } else {
           result.replies.forEach(replyContent => message.addReply({ type: 'text', content: 'Merci de nous avoir accordé de votre temps. Bonne journée' }))
         }
-      } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
-        result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
+      // } else if ((!result.action || !result.action.slug) && /[0-9]{11,11}/g.test(text)) {
+      //   result.replies.forEach(replyContent => message.addReply({type: 'text', content: 'Votre application ne prend pas en charge les appels syst\u00eame veuillez appuyer sur le lien suivant pour lancer l\'appel: <tel://33-7-61-39-14-53|Appeler>'}))
       } else {
         result.replies.forEach(replyContent => message.addReply({ type: 'text', content: replyContent }))
       }
