@@ -52,7 +52,7 @@ const replyMessage = async (message) => {
   var isFB = false
   var local = null
   try {
-    const FBquery = await GetFBInfo(senderId)
+    const FBquery = await GetFBInfo(1696871486992920)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
       local = FBquery.locale
       isFB = true
