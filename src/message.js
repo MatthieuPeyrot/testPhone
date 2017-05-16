@@ -28,7 +28,7 @@ function GetFBInfo (userId, FB) {
     .end((err, res) => {
       if (err) resolve(null)
       else {
-        console.log('res: ', res.text)
+        // console.log('res: ', res.text)
         resolve(res)
       }
     })
@@ -52,11 +52,14 @@ const replyMessage = async (message) => {
   var local = null
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
+    console.log(FBquery)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale) {
       local = FBquery.locale
       isFB = true
+      console.log('ok')
     }
   } catch (e) {
+    console.log('pas ok')
     isFB = false
   }
   console.log('isFB: ', isFB)
