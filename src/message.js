@@ -74,7 +74,7 @@ const replyMessage = (message) => {
             ]
           }
         }))
-      } else if (result.action && (result.action.slug === 'bonjour' || (result.entities && result.entities.indexOf('salutations')))) {
+      } else if (result.action && (result.action.slug === 'bonjour' || (result.entities && result.entities.indexOf('salutations') > -1))) {
         result.replies.forEach(replyContent => message.addReply({
           type: 'quickReplies',
           content: {
