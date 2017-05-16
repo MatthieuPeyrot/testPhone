@@ -66,8 +66,8 @@ const replyMessage = async (message) => {
   var isFB = false
   var local = null
   try {
-    const FBquery = await GetFBInfo(senderId, process.env.FB)
-    const FBquery2 = await GetFBInfo2(senderId, process.env.FB)
+    const FBquery = await GetFBInfo(senderId, process.env.PAGES)
+    const FBquery2 = await GetFBInfo2(senderId, process.env.PAGES)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
       local = FBquery.locale
       isFB = true
