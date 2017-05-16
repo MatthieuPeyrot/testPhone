@@ -28,6 +28,7 @@ function GetFBInfo (userId) {
     .end((err, res) => {
       if (err) resolve(null)
       else {
+        console.log(res)
         resolve(res)
       }
     })
