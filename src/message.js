@@ -42,7 +42,6 @@ const replyMessage = (message) => {
     while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
       result.replies.pop()
     }
-    console.log(result)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.

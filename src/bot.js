@@ -37,6 +37,7 @@ export const bot = (body, response, callback) => {
     * If you want to edit the behaviour of your code bot, depending on user input,
     * go to /src/message.js file and write your own code under "YOUR OWN CODE" comment.
     */
+    console.log(body)
     client.connect.handleMessage({ body }, response, replyMessage)
 
     /*
