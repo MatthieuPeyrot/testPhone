@@ -51,7 +51,7 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
             buttons: [
               {
                 title: 'Oui',
-                value: 'test'
+                value: 'test oui'
               },
               {
                 title: 'Non',
@@ -63,7 +63,7 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
       }
     })
   } else if (result.action && result.action.slug === 'testservice') {
-    if (text.toLocaleLowerCase() === 'test') {
+    if (text.toLocaleLowerCase() === 'test oui') {
       if (isFB) {
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
@@ -161,7 +161,7 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
                   buttons: [
                     {
                       title: 'Oui',
-                      value: 'test'
+                      value: 'test oui'
                     },
                     {
                       title: 'Non',
