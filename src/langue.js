@@ -137,11 +137,11 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
                   buttons: [
                     {
                       title: 'Messenger',
-                      value: 'facebook'
+                      value: 'messenger de facebook'
                     },
                     {
                       title: 'Voxist',
-                      value: 'voxist'
+                      value: 'application voxist'
                     }
                   ]
                 }
