@@ -212,7 +212,7 @@ export const englishReply = async (result, message, text, isFB, local, length) =
               },
               {
                 title: 'No',
-                value: 'no'
+                value: 'not'
               }
             ]
           }
@@ -321,7 +321,7 @@ export const englishReply = async (result, message, text, isFB, local, length) =
                     },
                     {
                       title: 'Voxist',
-                      value: 'app'
+                      value: 'voxist app'
                     }
                   ]
                 }
