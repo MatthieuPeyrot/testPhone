@@ -67,6 +67,25 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                 ]
               }
             })
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                buttons: [
+                  {
+                    title: 'Poland',
+                    value: 'Poland'
+                  },
+                  {
+                    title: 'Netherlands',
+                    value: 'Netherlands'
+                  },
+                  {
+                    title: 'Other',
+                    value: 'Other'
+                  }
+                ]
+              }
+            })
           }
         })
       } else {
