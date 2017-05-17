@@ -63,7 +63,7 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
       }
     })
   } else if (result.action && result.action.slug === 'testservice') {
-    if (text.toLocaleLowerCase() === 'test1') {
+    if (text.toLocaleLowerCase() === 'test') {
       if (isFB) {
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
@@ -243,7 +243,7 @@ export const englishReply = async (result, message, text, isFB, local, length) =
       }
     })
   } else if (result.action && result.action.slug === 'testservice') {
-    if (text.toLocaleLowerCase() === 'try1') {
+    if (text.toLocaleLowerCase() === 'try') {
       if (isFB) {
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
