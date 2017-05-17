@@ -51,11 +51,11 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
             buttons: [
               {
                 title: 'Oui',
-                value: 'test1'
+                value: 'test'
               },
               {
                 title: 'Non',
-                value: 'test2'
+                value: 'test pas'
               }
             ]
           }
@@ -161,11 +161,11 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
                   buttons: [
                     {
                       title: 'Oui',
-                      value: 'test1'
+                      value: 'test'
                     },
                     {
                       title: 'Non',
-                      value: 'test2'
+                      value: 'test pas'
                     }
                   ]
                 }
@@ -231,11 +231,11 @@ export const englishReply = async (result, message, text, isFB, local, length) =
             buttons: [
               {
                 title: 'Yes',
-                value: 'try1'
+                value: 'try'
               },
               {
                 title: 'No',
-                value: 'try2'
+                value: 'not try'
               }
             ]
           }
@@ -341,11 +341,11 @@ export const englishReply = async (result, message, text, isFB, local, length) =
                   buttons: [
                     {
                       title: 'Yes',
-                      value: 'try1'
+                      value: 'try'
                     },
                     {
                       title: 'No',
-                      value: 'try2'
+                      value: 'not try'
                     }
                   ]
                 }
