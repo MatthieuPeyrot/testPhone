@@ -46,7 +46,14 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
                 {
                   title: 'Espagne',
                   value: 'Espagne'
-                },
+                }
+              ]
+            }
+          })
+          message.addReply({
+            type: 'quickReplies',
+            content: {
+              buttons: [
                 {
                   title: 'Pologne',
                   value: 'Pologne'

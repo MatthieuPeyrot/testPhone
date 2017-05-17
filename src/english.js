@@ -51,18 +51,6 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                   {
                     title: 'Spain',
                     value: 'Spain'
-                  },
-                  {
-                    title: 'Poland',
-                    value: 'Poland'
-                  },
-                  {
-                    title: 'Netherlands',
-                    value: 'Netherlands'
-                  },
-                  {
-                    title: 'Other',
-                    value: 'Other'
                   }
                 ]
               }
