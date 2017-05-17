@@ -5,7 +5,8 @@
 
 import RECASTAI from 'recastai'
 import su from 'superagent'
-import {frenchReply, englishReply} from './langue'
+import frenchReply from './french'
+import englishReply from './english'
 
 function GetFBInfo (userId, FB) {
   return new Promise((resolve, reject) => {
@@ -62,6 +63,41 @@ const replyMessage = async (message) => {
     // while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
     //   result.replies.pop()
     // }
+    if (!local && result.memory && result.memory.loc && result.memory.loc.formatted) {
+      switch (result.memory.loc.formatted.toLowerCase()) {
+        case 'france':
+        case 'francia':
+          local = 'FR'
+          break
+        case 'united kingdom':
+        case 'royaume-uni':
+          local = 'UK'
+          break
+        case 'usa':
+        case 'united states':
+        case 'etats unis':
+          local = 'US'
+          break
+        case 'australie':
+        case 'australia':
+          local = 'AU'
+          break
+        case 'spain':
+        case 'espagne':
+          local = 'ES'
+          break
+        case 'poland':
+        case 'pologne':
+          local = 'PL'
+          break
+        case 'netherlands':
+        case 'pays bas':
+          local = 'NL'
+          break
+        default:
+          local = null
+      }
+    }
     console.log(result.replies.length)
     const length = result.replies.length - 1
     /*
