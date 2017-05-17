@@ -177,30 +177,18 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
       } catch (e) {
         console.log(e)
         result.replies.forEach((replyContent, i) => {
-          if (i < length) {
-            message.addReply({ type: 'text', content: replyContent })
-          } else {
-            message.addReply({ type: 'text', content: replyContent })
-          }
+          message.addReply({ type: 'text', content: replyContent })
         })
       }
     } else {
       console.log('no matching')
       result.replies.forEach((replyContent, i) => {
-        if (i < length) {
-          message.addReply({ type: 'text', content: replyContent })
-        } else {
-          message.addReply({ type: 'text', content: replyContent })
-        }
+        message.addReply({ type: 'text', content: replyContent })
       })
     }
   } else {
     result.replies.forEach((replyContent, i) => {
-      if (i < length) {
-        message.addReply({ type: 'text', content: replyContent })
-      } else {
-        message.addReply({ type: 'text', content: replyContent })
-      }
+      message.addReply({ type: 'text', content: replyContent })
     })
   }
   return message
@@ -329,11 +317,11 @@ export const englishReply = async (result, message, text, isFB, local, length) =
                   buttons: [
                     {
                       title: 'Messenger',
-                      value: 'facebook'
+                      value: 'messenger'
                     },
                     {
                       title: 'Voxist',
-                      value: 'voxist'
+                      value: 'app'
                     }
                   ]
                 }
@@ -369,30 +357,18 @@ export const englishReply = async (result, message, text, isFB, local, length) =
       } catch (e) {
         console.log(e)
         result.replies.forEach((replyContent, i) => {
-          if (i < length) {
-            message.addReply({ type: 'text', content: replyContent })
-          } else {
-            message.addReply({ type: 'text', content: replyContent })
-          }
+          message.addReply({ type: 'text', content: replyContent })
         })
       }
     } else {
       console.log('no matching')
       result.replies.forEach((replyContent, i) => {
-        if (i < length) {
-          message.addReply({ type: 'text', content: replyContent })
-        } else {
-          message.addReply({ type: 'text', content: replyContent })
-        }
+        message.addReply({ type: 'text', content: replyContent })
       })
     }
   } else {
     result.replies.forEach((replyContent, i) => {
-      if (i < length) {
-        message.addReply({ type: 'text', content: replyContent })
-      } else {
-        message.addReply({ type: 'text', content: replyContent })
-      }
+      message.addReply({ type: 'text', content: replyContent })
     })
   }
   return message
