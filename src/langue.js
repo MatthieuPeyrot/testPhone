@@ -141,7 +141,7 @@ export const frenchReply = async (result, message, text, isFB, local, length) =>
                     },
                     {
                       title: 'Voxist',
-                      value: 'application voxist'
+                      value: 'l\'application voxist'
                     }
                   ]
                 }
