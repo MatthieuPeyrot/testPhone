@@ -22,53 +22,96 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         if (i < length) {
           message.addReply({ type: 'text', content: replyContent })
         } else {
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              title: 'Bonjour! Nous avons besoin de connaître votre pays?',
-              buttons: [
-                {
-                  title: 'France',
-                  value: 'France'
-                },
-                {
-                  title: 'Royaume-Uni',
-                  value: 'Royaume-Uni'
-                },
-                {
-                  title: 'Etats Unis',
-                  value: 'Etats Unis'
-                },
-                {
-                  title: 'Australie',
-                  value: 'Australie'
-                },
-                {
-                  title: 'Espagne',
-                  value: 'Espagne'
-                }
-              ]
-            }
-          })
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              buttons: [
-                {
-                  title: 'Pologne',
-                  value: 'Pologne'
-                },
-                {
-                  title: 'Pays Bas',
-                  value: 'Pays Bas'
-                },
-                {
-                  title: 'Autre',
-                  value: 'Autre'
-                }
-              ]
-            }
-          })
+          if (isFB) {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Bonjour! Nous avons besoin de connaître votre pays?',
+                buttons: [
+                  {
+                    title: 'France',
+                    value: 'France'
+                  },
+                  {
+                    title: 'Royaume-Uni',
+                    value: 'Royaume-Uni'
+                  },
+                  {
+                    title: 'Etats Unis',
+                    value: 'Etats Unis'
+                  },
+                  {
+                    title: 'Australie',
+                    value: 'Australie'
+                  },
+                  {
+                    title: 'Espagne',
+                    value: 'Espagne'
+                  },
+                  {
+                    title: 'Pologne',
+                    value: 'Pologne'
+                  },
+                  {
+                    title: 'Pays Bas',
+                    value: 'Pays Bas'
+                  },
+                  {
+                    title: 'Autre',
+                    value: 'Autre'
+                  }
+                ]
+              }
+            })
+          } else {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Bonjour! Nous avons besoin de connaître votre pays?',
+                buttons: [
+                  {
+                    title: 'France',
+                    value: 'France'
+                  },
+                  {
+                    title: 'Royaume-Uni',
+                    value: 'Royaume-Uni'
+                  },
+                  {
+                    title: 'Etats Unis',
+                    value: 'Etats Unis'
+                  },
+                  {
+                    title: 'Australie',
+                    value: 'Australie'
+                  },
+                  {
+                    title: 'Espagne',
+                    value: 'Espagne'
+                  }
+                ]
+              }
+            })
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                buttons: [
+                  {
+                    title: 'Pologne',
+                    value: 'Pologne'
+                  },
+                  {
+                    title: 'Pays Bas',
+                    value: 'Pays Bas'
+                  },
+                  {
+                    title: 'Autre',
+                    value: 'Autre'
+                  }
+                ]
+              }
+            })
+          }
         }
       })
     } else {

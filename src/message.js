@@ -43,7 +43,7 @@ const replyMessage = async (message) => {
   try {
     const FBquery = await GetFBInfo(senderId, process.env.PAGES)
     if (FBquery && FBquery.first_name && FBquery.last_name && FBquery.locale && (FBquery.first_name + ' ' + FBquery.last_name === userName)) {
-      // local = FBquery.locale.replace(/\w+_/g, '')
+      local = FBquery.locale.replace(/\w+_/g, '')
       loacalLanguage = FBquery.locale.replace(/_\w+/g, '')
       isFB = true
     }
