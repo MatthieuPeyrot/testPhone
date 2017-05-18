@@ -82,6 +82,8 @@ const replyMessage = async (message) => {
     }
     if (local === 'FR') {
       loacalLanguage = local.toLocaleLowerCase()
+    } else {
+      loacalLanguage = 'en'
     }
     console.log(result.replies.length)
     const length = result.replies.length - 1
