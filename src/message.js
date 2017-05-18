@@ -119,7 +119,7 @@ const replyMessage = async (message) => {
     if (result.action) {
       console.log('The conversation action is: ', result.action.slug)
     } else {
-      message.addReply({type: 'text', content: 'Say hello fro start conversation! \nDites bonjour pour démarer la conversation!'})
+      message.addReply({type: 'text', content: 'Say hello for start conversation! \nDites bonjour pour démarer la conversation!'})
     }
 
     message.reply()
