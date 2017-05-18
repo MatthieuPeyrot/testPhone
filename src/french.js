@@ -4,6 +4,7 @@ import {Query} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
+    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) length--
     if (!local) {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
@@ -153,6 +154,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       }
     })
   } else if (((result.action && result.action.slug === 'non') || (result.nextActions && result.nextActions[0].slug === 'non' && !result.nextActions[0].done)) || (result.entities && result.entities.non1)) {
+    if (result.nextActions && result.nextActions[0].slug === 'non' && !result.nextActions[0].done) length--
     result.replies.forEach((replyContent, i) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })

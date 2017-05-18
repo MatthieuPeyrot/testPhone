@@ -4,113 +4,114 @@ import {Query} from './utils'
 
 const englishReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
-    result.replies.forEach((replyContent, i) => {
-      if (!local) {
-        result.replies.forEach((replyContent, i) => {
-          if (i < length) {
-            message.addReply({ type: 'text', content: replyContent })
+    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) length--
+    if (!local) {
+      result.replies.forEach((replyContent, i) => {
+        if (i < length) {
+          message.addReply({ type: 'text', content: replyContent })
+        } else {
+          if (isFB) {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Hello! We need to know your country?',
+                buttons: [
+                  {
+                    title: 'France',
+                    value: 'Francia'
+                  },
+                  {
+                    title: 'United Kingdom',
+                    value: 'United Kingdom'
+                  },
+                  {
+                    title: 'United States',
+                    value: 'United States'
+                  },
+                  {
+                    title: 'USA',
+                    value: 'USA'
+                  },
+                  {
+                    title: 'Australia',
+                    value: 'Australia'
+                  },
+                  {
+                    title: 'Spain',
+                    value: 'Spain'
+                  },
+                  {
+                    title: 'Poland',
+                    value: 'Poland'
+                  },
+                  {
+                    title: 'Netherlands',
+                    value: 'Netherlands'
+                  },
+                  {
+                    title: 'Other',
+                    value: 'Other'
+                  }
+                ]
+              }
+            })
           } else {
-            if (isFB) {
-              message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Hello! We need to know your country?',
-                  buttons: [
-                    {
-                      title: 'France',
-                      value: 'Francia'
-                    },
-                    {
-                      title: 'United Kingdom',
-                      value: 'United Kingdom'
-                    },
-                    {
-                      title: 'United States',
-                      value: 'United States'
-                    },
-                    {
-                      title: 'USA',
-                      value: 'USA'
-                    },
-                    {
-                      title: 'Australia',
-                      value: 'Australia'
-                    },
-                    {
-                      title: 'Spain',
-                      value: 'Spain'
-                    },
-                    {
-                      title: 'Poland',
-                      value: 'Poland'
-                    },
-                    {
-                      title: 'Netherlands',
-                      value: 'Netherlands'
-                    },
-                    {
-                      title: 'Other',
-                      value: 'Other'
-                    }
-                  ]
-                }
-              })
-            } else {
-              message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Hello! We need to know your country?',
-                  buttons: [
-                    {
-                      title: 'France',
-                      value: 'Francia'
-                    },
-                    {
-                      title: 'United Kingdom',
-                      value: 'United Kingdom'
-                    },
-                    {
-                      title: 'United States',
-                      value: 'United States'
-                    },
-                    {
-                      title: 'USA',
-                      value: 'USA'
-                    },
-                    {
-                      title: 'Australia',
-                      value: 'Australia'
-                    }
-                  ]
-                }
-              })
-              message.addReply({
-                type: 'quickReplies',
-                content: {
-                  buttons: [
-                    {
-                      title: 'Spain',
-                      value: 'Spain'
-                    },
-                    {
-                      title: 'Poland',
-                      value: 'Poland'
-                    },
-                    {
-                      title: 'Netherlands',
-                      value: 'Netherlands'
-                    },
-                    {
-                      title: 'Other',
-                      value: 'Other'
-                    }
-                  ]
-                }
-              })
-            }
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Hello! We need to know your country?',
+                buttons: [
+                  {
+                    title: 'France',
+                    value: 'Francia'
+                  },
+                  {
+                    title: 'United Kingdom',
+                    value: 'United Kingdom'
+                  },
+                  {
+                    title: 'United States',
+                    value: 'United States'
+                  },
+                  {
+                    title: 'USA',
+                    value: 'USA'
+                  },
+                  {
+                    title: 'Australia',
+                    value: 'Australia'
+                  }
+                ]
+              }
+            })
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                buttons: [
+                  {
+                    title: 'Spain',
+                    value: 'Spain'
+                  },
+                  {
+                    title: 'Poland',
+                    value: 'Poland'
+                  },
+                  {
+                    title: 'Netherlands',
+                    value: 'Netherlands'
+                  },
+                  {
+                    title: 'Other',
+                    value: 'Other'
+                  }
+                ]
+              }
+            })
           }
-        })
-      } else {
+        }
+      })
+    } else {
+      result.replies.forEach((replyContent, i) => {
         if (i < length) {
           message.addReply({ type: 'text', content: replyContent })
         } else {
@@ -131,8 +132,8 @@ const englishReply = async (result, message, text, isFB, local, length) => {
             }
           })
         }
-      }
-    })
+      })
+    }
   } else if ((result.action && result.action.slug === 'country' && result.action.done) || (result.entities && result.entities.salutations)) {
     result.replies.forEach((replyContent, i) => {
       if (!local) {
@@ -161,6 +162,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
       }
     })
   } else if (((result.action && result.action.slug === 'non') || (result.nextActions && result.nextActions[0].slug === 'non' && !result.nextActions[0].done)) || (result.entities && result.entities.non1)) {
+    if (result.nextActions && result.nextActions[0].slug === 'non' && !result.nextActions[0].done) length--
     result.replies.forEach((replyContent, i) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })
