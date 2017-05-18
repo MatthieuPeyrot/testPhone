@@ -42,3 +42,15 @@ export const deleteConv = (convId) => {
       console.log(res.body)
     })
 }
+
+export const modConv = (convId, memory) => {
+  su
+    .put(`https://api.recast.ai/v2/converse`)
+    .send({ conversation_token: convId })
+    .send({memory: memory})
+    .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
+    .end((err, res) => {
+      if (err) console.log(err)
+      console.log(res.body)
+    })
+}
