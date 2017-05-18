@@ -262,7 +262,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                   buttons: [
                     {
                       title: 'Messenger',
-                      value: 'messenger'
+                      value: 'our bot'
                     },
                     {
                       title: 'Voxist',

@@ -254,7 +254,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
                   buttons: [
                     {
                       title: 'Messenger',
-                      value: 'messenger de facebook'
+                      value: 'notre bot'
                     },
                     {
                       title: 'Voxist',
