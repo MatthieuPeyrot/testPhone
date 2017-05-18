@@ -117,7 +117,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
                 },
                 {
                   title: 'Non',
-                  value: 'non'
+                  value: 'pas du tout'
                 }
               ]
             }
