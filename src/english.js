@@ -237,6 +237,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
       var num = null
       try {
         num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'US'), PNF.E164)
+        console.log(num)
       } catch (e) {
         console.log('no matching')
         result.replies.forEach((replyContent, i) => {
