@@ -115,22 +115,24 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         if (i < length) {
           message.addReply({ type: 'text', content: replyContent })
         } else {
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              title: 'Hello! Do you already use Voxist?',
-              buttons: [
-                {
-                  title: 'Yes',
-                  value: 'yes'
-                },
-                {
-                  title: 'No',
-                  value: 'not'
-                }
-              ]
-            }
-          })
+          if (i <= length) {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Hello! Do you already use Voxist?',
+                buttons: [
+                  {
+                    title: 'Yes',
+                    value: 'yes'
+                  },
+                  {
+                    title: 'No',
+                    value: 'not'
+                  }
+                ]
+              }
+            })
+          }
         }
       })
     }

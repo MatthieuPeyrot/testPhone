@@ -105,26 +105,26 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
     } else {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
-          console.log('i: ', i, ' length: ', length)
           message.addReply({ type: 'text', content: replyContent })
         } else {
-          console.log('i2: ', i, ' length: ', length)
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              title: 'Bonjour! Utilisez vous déjà Voxist?',
-              buttons: [
-                {
-                  title: 'Oui',
-                  value: 'oui'
-                },
-                {
-                  title: 'Non',
-                  value: 'pas du tout'
-                }
-              ]
-            }
-          })
+          if (i <= length) {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Bonjour! Utilisez vous déjà Voxist?',
+                buttons: [
+                  {
+                    title: 'Oui',
+                    value: 'oui'
+                  },
+                  {
+                    title: 'Non',
+                    value: 'pas du tout'
+                  }
+                ]
+              }
+            })
+          }
         }
       })
     }
