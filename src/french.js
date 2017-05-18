@@ -3,7 +3,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 import {Query} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
-  if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.next_actions[0].slug === 'oui' && !result.next_actions[0].done)) || (result.entities && result.entities.salutations)) {
+  if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.next_actions && result.next_actions[0].slug === 'oui' && !result.next_actions[0].done)) || (result.entities && result.entities.salutations)) {
     if (!local) {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
@@ -152,7 +152,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         }
       }
     })
-  } else if (((result.action && result.action.slug === 'non') || (result.next_actions[0].slug === 'non' && !result.next_actions[0].done)) || (result.entities && result.entities.non1)) {
+  } else if (((result.action && result.action.slug === 'non') || (result.next_actions && result.next_actions[0].slug === 'non' && !result.next_actions[0].done)) || (result.entities && result.entities.non1)) {
     result.replies.forEach((replyContent, i) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })
