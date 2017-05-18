@@ -228,7 +228,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
     if (/[0-9]{6,30}/g.test(text)) {
       var num = null
       try {
-        num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'FR'), PNF.E164)
+        num = phoneUtil.format(phoneUtil.parse(text, local || 'FR'), PNF.E164)
       } catch (e) {
         console.log('no matching')
         result.replies.forEach((replyContent, i) => {
