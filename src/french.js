@@ -4,7 +4,10 @@ import {Query} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
-    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) length--
+    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) {
+      length--
+      console.log(length)
+    }
     if (!local) {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
