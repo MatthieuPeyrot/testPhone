@@ -233,13 +233,12 @@ const englishReply = async (result, message, text, isFB, local, length) => {
       })
     }
   } else if ((result.action && result.action.slug === 'phone') || (result.entities && result.entities.phone)) {
-    if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
+    if (/[0-9]{6,30}/g.test(text)) {
       var num = null
       try {
         num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'US'), PNF.E164)
       } catch (e) {
         console.log('no matching')
-        console.log(e)
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })
