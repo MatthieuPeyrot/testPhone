@@ -5,13 +5,13 @@ export const Query = (num) => {
   const connection = mysql.createConnection(process.env.SQL_HOST)
   return new Promise((resolve, reject) => {
     connection.query('SELECT uuid FROM Phones WHERE phone = ?', num, (error, results, fields) => {
+      connection.destroy()
       if (error) {
         reject(error)
       } else {
         resolve(results)
       }
     })
-    connection.destroy()
   })
 }
 
