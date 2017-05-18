@@ -105,6 +105,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
     } else {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
+          console.log('i: ', i, ' length: ', length)
           message.addReply({ type: 'text', content: replyContent })
         } else {
           message.addReply({
@@ -132,7 +133,6 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         message.addReply({ type: 'text', content: 'Malheureusement Voxist n\'est pas encore disponible dans votre pays.' })
       } else {
         if (i < length) {
-          console.log('i: ', i, ' length: ', length)
           message.addReply({ type: 'text', content: replyContent })
         } else {
           message.addReply({
