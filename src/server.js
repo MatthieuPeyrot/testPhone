@@ -13,13 +13,13 @@
 
 import express from 'express'
 import bodyParser from 'body-parser'
-import su from 'superagent'
 import {bot} from './bot'
-import mysql from 'mysql'
+// import mysql from 'mysql'
+import {deleteConv} from './utils'
 
 require('./config')
 
-const connection = mysql.createConnection(process.env.SQL_HOST)
+// const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -49,14 +49,7 @@ if (!process.env.REQUEST_TOKEN.length) {
   //       console.log(results)
   //     }
   //   })
-    su
-      .delete(`https://api.recast.ai/v2/converse`)
-      .send({ conversation_token: '1696871486992920' })
-      .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
-      .end((err, res) => {
-        if (err) console.log(err)
-        console.log(res.body)
-      })
+    deleteConv('1696871486992920')
     console.log('Our bot is running on port', app.get('port'))
   })
 }

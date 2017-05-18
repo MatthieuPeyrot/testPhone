@@ -1,21 +1,8 @@
-import mysql from 'mysql'
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
-
-const Query = (connection, num) => {
-  return new Promise((resolve, reject) => {
-    connection.query('SELECT uuid FROM Phones WHERE phone = ?', num, (error, results, fields) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(results)
-      }
-    })
-  })
-}
+import {Query} from './utils'
 
 const englishReply = async (result, message, text, isFB, local, length) => {
-  const connection = mysql.createConnection(process.env.SQL_HOST)
   if ((result.action && result.action.slug === 'bonjour') || (result.entities && result.entities.salutations)) {
     result.replies.forEach((replyContent, i) => {
       if (!local) {
@@ -261,7 +248,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         })
       }
       try {
-        var numRes = await Query(connection, num)
+        var numRes = await Query(num)
         if (numRes && numRes.length) {
           console.log(numRes)
           result.replies.forEach((replyContent, i) => {
@@ -315,7 +302,6 @@ const englishReply = async (result, message, text, isFB, local, length) => {
             }
           })
         }
-        connection.destroy()
       } catch (e) {
         console.log(e)
         result.replies.forEach((replyContent, i) => {

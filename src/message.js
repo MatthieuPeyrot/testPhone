@@ -4,26 +4,9 @@
  */
 
 import RECASTAI from 'recastai'
-import su from 'superagent'
 import frenchReply from './french'
 import englishReply from './english'
-
-function GetFBInfo (userId, FB) {
-  return new Promise((resolve, reject) => {
-    su.get('https://graph.facebook.com/v2.6/' + userId)
-    .query({fields: 'first_name,last_name,locale,gender', access_token: FB})
-    .end((err, res) => {
-      if (err) resolve(null)
-      else {
-        if (res.status === 200) {
-          resolve(JSON.parse(res.text))
-        } else {
-          resolve(null)
-        }
-      }
-    })
-  })
-}
+import {GetFBInfo} from './utils'
 
 const replyMessage = async (message) => {
   // Instantiate Recast.AI SDK, just for request service
@@ -50,7 +33,6 @@ const replyMessage = async (message) => {
   } catch (e) {
     isFB = false
   }
-  console.log('isFB: ', isFB)
   console.log('loacalLanguage: ', loacalLanguage)
 
   console.log('AppUserId: ', senderId)
