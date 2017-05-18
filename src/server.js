@@ -43,7 +43,7 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), () => {
-    connection.query('SELECT phone FROM Phones', function (error, results, fields) {
+    connection.query('SELECT phone FROM Phones WHERE phone LIKE "+185%"', function (error, results, fields) {
       if (error) console.error(error)
       if (results) {
         console.log(results)

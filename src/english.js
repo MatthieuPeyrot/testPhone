@@ -3,7 +3,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 import {Query} from './utils'
 
 const englishReply = async (result, message, text, isFB, local, length) => {
-  if ((result.action && result.action.slug === 'bonjour') || (result.entities && result.entities.salutations)) {
+  if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.next_actions[0].slug === 'oui' && !result.next_actions[0].done)) || (result.entities && result.entities.salutations)) {
     result.replies.forEach((replyContent, i) => {
       if (!local) {
         result.replies.forEach((replyContent, i) => {
@@ -133,7 +133,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         }
       }
     })
-  } else if ((result.action && result.action.slug === 'country') || (result.entities && result.entities.salutations)) {
+  } else if ((result.action && result.action.slug === 'country' && result.action.done) || (result.entities && result.entities.salutations)) {
     result.replies.forEach((replyContent, i) => {
       if (!local) {
         message.addReply({ type: 'text', content: 'Unfortunately Voxist is not yet available in your country.' })
@@ -160,7 +160,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         }
       }
     })
-  } else if ((result.action && result.action.slug === 'non') || (result.entities && result.entities.non1)) {
+  } else if (((result.action && result.action.slug === 'non') || (result.next_actions[0].slug === 'non' && !result.next_actions[0].done)) || (result.entities && result.entities.non1)) {
     result.replies.forEach((replyContent, i) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })
@@ -187,7 +187,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         }
       }
     })
-  } else if (result.action && result.action.slug === 'testservice') {
+  } else if (result.action && result.action.slug === 'testservice' && result.action.done) {
     if (text.toLocaleLowerCase() === 'try') {
       if (isFB) {
         result.replies.forEach((replyContent, i) => {
@@ -232,7 +232,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         }
       })
     }
-  } else if ((result.action && result.action.slug === 'phone') || (result.entities && result.entities.phone)) {
+  } else if ((result.action && result.action.slug === 'phone' && result.action.done) || (result.entities && result.entities.phone)) {
     if (/[0-9]{6,30}/g.test(text)) {
       var num = null
       try {
