@@ -93,10 +93,6 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                     {
                       title: 'Australia',
                       value: 'Australia'
-                    },
-                    {
-                      title: 'Spain',
-                      value: 'Spain'
                     }
                   ]
                 }
@@ -105,6 +101,10 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                 type: 'quickReplies',
                 content: {
                   buttons: [
+                    {
+                      title: 'Spain',
+                      value: 'Spain'
+                    },
                     {
                       title: 'Poland',
                       value: 'Poland'
