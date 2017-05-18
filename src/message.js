@@ -107,12 +107,14 @@ const replyMessage = async (message) => {
         try {
           message = await frenchReply(result, message, text, isFB, local, length)
         } catch (e) {
+          console.log(e)
           message.addReply({ type: 'text', content: 'Une erreur est survenue, veuillez nous en excuser' })
         }
       } else {
         try {
           message = await englishReply(result, message, text, isFB, local, length)
         } catch (e) {
+          console.log(e)
           message.addReply({ type: 'text', content: 'An error has occurred, please excuse us' })
         }
       }
