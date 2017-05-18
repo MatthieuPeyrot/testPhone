@@ -33,7 +33,6 @@ const replyMessage = async (message) => {
   } catch (e) {
     isFB = false
   }
-  console.log('loacalLanguage: ', loacalLanguage)
 
   console.log('AppUserId: ', senderId)
 
@@ -85,6 +84,7 @@ const replyMessage = async (message) => {
     } else {
       loacalLanguage = 'en'
     }
+    console.log('loacalLanguage: ', loacalLanguage)
     console.log(result.replies.length)
     const length = result.replies.length - 1
     /*

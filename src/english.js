@@ -239,6 +239,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'US'), PNF.E164)
       } catch (e) {
         console.log('no matching')
+        console.log(e)
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })

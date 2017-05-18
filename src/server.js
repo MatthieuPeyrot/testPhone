@@ -50,6 +50,7 @@ if (!process.env.REQUEST_TOKEN.length) {
   //     }
   //   })
     deleteConv('1696871486992920')
+    deleteConv('U5CJZS8V9')
     console.log('Our bot is running on port', app.get('port'))
   })
 }
