@@ -3,6 +3,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 import {Query} from './utils'
 
 const englishReply = async (result, message, text, isFB, local, length) => {
+  console.log(result)
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.next_actions && result.next_actions[0].slug === 'oui' && !result.next_actions[0].done)) || (result.entities && result.entities.salutations)) {
     result.replies.forEach((replyContent, i) => {
       if (!local) {
