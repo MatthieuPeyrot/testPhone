@@ -53,7 +53,7 @@ const replyMessage = async (message) => {
           break
         case 'united kingdom':
         case 'royaume-uni':
-          local = 'UK'
+          local = 'GB'
           break
         case 'usa':
         case 'united states':
