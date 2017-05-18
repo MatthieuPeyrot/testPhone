@@ -220,7 +220,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
           } else {
             message.addReply({
               type: 'text',
-              content: 'Contactez Voxist pour tester notre app. \nAppuyez <tel:+33761391453|ici> va lancer un appel vocal'
+              content: 'Contactez Voxist pour tester notre app. \nAppuyez <tel://33-7-61-39-14-53|ici> va lancer un appel vocal'
             })
           }
         })
