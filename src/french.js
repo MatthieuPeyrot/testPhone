@@ -163,25 +163,29 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })
       } else {
-        if (local === 'FR' || local === 'US') {
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              title: 'Voulez vous testez Voxist?',
-              buttons: [
-                {
-                  title: 'Oui',
-                  value: 'test oui'
-                },
-                {
-                  title: 'Non',
-                  value: 'test pas'
-                }
-              ]
-            }
-          })
+        if (i <= length) {
+          if (local === 'FR' || local === 'US') {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Voulez vous testez Voxist?',
+                buttons: [
+                  {
+                    title: 'Oui',
+                    value: 'test oui'
+                  },
+                  {
+                    title: 'Non',
+                    value: 'test pas'
+                  }
+                ]
+              }
+            })
+          } else {
+            message.addReply({ type: 'text', content: 'Malheureusement les tests ne sont pas disponibles dans votre pays.' })
+          }
         } else {
-          message.addReply({ type: 'text', content: 'Malheureusement les tests ne sont pas disponibles dans votre pays.' })
+          modConv(message.senderId, {rep2: null})
         }
       }
     })

@@ -171,25 +171,29 @@ const englishReply = async (result, message, text, isFB, local, length) => {
       if (i < length) {
         message.addReply({ type: 'text', content: replyContent })
       } else {
-        if (local === 'FR' || local === 'US') {
-          message.addReply({
-            type: 'quickReplies',
-            content: {
-              title: 'Want to test Voxist?',
-              buttons: [
-                {
-                  title: 'Yes',
-                  value: 'try'
-                },
-                {
-                  title: 'No',
-                  value: 'not try'
-                }
-              ]
-            }
-          })
+        if (i <= length) {
+          if (local === 'FR' || local === 'US') {
+            message.addReply({
+              type: 'quickReplies',
+              content: {
+                title: 'Want to test Voxist?',
+                buttons: [
+                  {
+                    title: 'Yes',
+                    value: 'try'
+                  },
+                  {
+                    title: 'No',
+                    value: 'not try'
+                  }
+                ]
+              }
+            })
+          } else {
+            message.addReply({ type: 'text', content: 'Unfortunately test aren\'t available in your country.' })
+          }
         } else {
-          message.addReply({ type: 'text', content: 'Unfortunately test aren\'t available in your country.' })
+          modConv(message.senderId, {rep2: null})
         }
       }
     })

@@ -96,9 +96,6 @@ const replyMessage = async (message) => {
     * Or: Update your mongo DB
     * etc...
     */
-    if (result.action) {
-      console.log('The conversation action is: ', result.action.slug)
-    }
 
     if (!result.replies.length) {
       message.addReply({ type: 'text', content: 'I don\'t have the reply to this yet :)' })
@@ -118,6 +115,11 @@ const replyMessage = async (message) => {
           message.addReply({ type: 'text', content: 'An error has occurred, please excuse us' })
         }
       }
+    }
+    if (result.action) {
+      console.log('The conversation action is: ', result.action.slug)
+    } else {
+      message.addReply({type: 'text', content: 'Say hello fro start conversation! \nDites bonjour pour démarer la conversation!'})
     }
 
     message.reply()
