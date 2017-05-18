@@ -45,6 +45,7 @@ const replyMessage = async (message) => {
     //   result.replies.pop()
     // }
     if (!local && result.memory && result.memory.loc && result.memory.loc.formatted) {
+      console.log(result.memory.loc.formatted.toLowerCase())
       switch (result.memory.loc.formatted.toLowerCase()) {
         case 'france':
         case 'francia':
@@ -84,6 +85,7 @@ const replyMessage = async (message) => {
     } else {
       loacalLanguage = 'en'
     }
+    console.log('loacl: ', local)
     console.log('loacalLanguage: ', loacalLanguage)
     console.log(result.replies.length)
     const length = result.replies.length - 1

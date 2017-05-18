@@ -225,7 +225,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       })
     }
   } else if ((result.action && result.action.slug === 'phone') || (result.entities && result.entities.phone)) {
-    if (text[0] === '0' && /[0-9]{6,30}/g.test(text)) {
+    if (/[0-9]{6,30}/g.test(text)) {
       var num = null
       try {
         num = phoneUtil.format(phoneUtil.parse(text, isFB ? local : 'FR'), PNF.E164)
