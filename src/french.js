@@ -4,10 +4,7 @@ import {Query} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
-    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) {
-      length--
-      console.log(length)
-    }
+    if (result.nextActions && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done) length--
     if (!local) {
       result.replies.forEach((replyContent, i) => {
         if (i < length) {
@@ -135,6 +132,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         message.addReply({ type: 'text', content: 'Malheureusement Voxist n\'est pas encore disponible dans votre pays.' })
       } else {
         if (i < length) {
+          console.log('i: ', i, ' length: ', length)
           message.addReply({ type: 'text', content: replyContent })
         } else {
           message.addReply({
