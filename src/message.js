@@ -15,7 +15,7 @@ const replyMessage = async (message) => {
       credential: admin.credential.cert({
         projectId: process.env.PROJECT,
         clientEmail: process.env.MAIL,
-        privateKey: process.env.FIREBASE
+        privateKey: process.env.FIREBASE1 + process.env.FIREBASE2 + process.env.FIREBASE3 + process.env.FIREBASE4 + process.env.FIREBASE5 + process.env.FIREBASE6 + process.env.FIREBASE7 + process.env.FIREBASE8 + process.env.FIREBASE9 + process.env.FIREBASE10 + process.env.FIREBASE11 + process.env.FIREBASE12 + process.env.FIREBASE13
       }),
       databaseURL: process.env.FIREBASE_URL
     })

@@ -22,15 +22,6 @@ import * as admin from 'firebase-admin'
 
 require('./config')
 
-admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: process.env.PROJECT,
-    clientEmail: process.env.MAIL,
-    privateKey: process.env.FIREBASE
-  }),
-  databaseURL: process.env.FIREBASE_URL
-})
-
 // const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
@@ -61,13 +52,25 @@ if (!process.env.REQUEST_TOKEN.length) {
     //     console.log(results)
     //   }
     // })
-    const db = admin.database()
-    const ref = db.ref('/')
-    ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
-      console.log(snapshot.val())
-    }, (errorObject) => {
-      console.log('The read failed: ' + errorObject.code)
-    })
+    try {
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.PROJECT,
+          clientEmail: process.env.MAIL,
+          privateKey: process.env.FIREBASE1 + process.env.FIREBASE2 + process.env.FIREBASE3 + process.env.FIREBASE4 + process.env.FIREBASE5 + process.env.FIREBASE6 + process.env.FIREBASE7 + process.env.FIREBASE8 + process.env.FIREBASE9 + process.env.FIREBASE10 + process.env.FIREBASE11 + process.env.FIREBASE12 + process.env.FIREBASE13
+        }),
+        databaseURL: process.env.FIREBASE_URL
+      })
+      const db = admin.database()
+      const ref = db.ref('/')
+      ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
+        console.log(snapshot.val())
+      }, (errorObject) => {
+        console.log('The read failed: ' + errorObject.code)
+      })
+    } catch (e) {
+      console.log(e)
+    }
     deleteConv('1696871486992920')
     deleteConv('U5CJZS8V9')
     console.log('Our bot is running on port', app.get('port'))
