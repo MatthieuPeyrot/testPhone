@@ -7,8 +7,18 @@ import RECASTAI from 'recastai'
 import frenchReply from './french'
 import englishReply from './english'
 import {GetFBInfo, modConv} from './utils'
+import * as admin from 'firebase-admin'
 
 const replyMessage = async (message) => {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.PROJECT,
+      clientEmail: process.env.MAIL,
+      privateKey: process.env.FIREBASE
+    }),
+    databaseURL: process.env.FIREBASE_URL
+  })
+
   // Instantiate Recast.AI SDK, just for request service
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
 
@@ -18,6 +28,14 @@ const replyMessage = async (message) => {
   console.log('I receive: ', text)
 
 // TODO: need to integrate language by bdd here for more faster response
+
+  const db = admin.database()
+  const ref = db.ref('/')
+  ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
+    console.log(snapshot.val())
+  }, (errorObject) => {
+    console.log('The read failed: ' + errorObject.code)
+  })
 
   const senderId = message.senderId
   const userName = message.message.data.userName

@@ -14,12 +14,24 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import {bot} from './bot'
-import mysql from 'mysql'
+// import mysql from 'mysql'
 import {deleteConv} from './utils'
+import * as admin from 'firebase-admin'
+
+// var serviceAccount = require('../test1-24e01-firebase-adminsdk-gv9zk-a007c6290a.json')
 
 require('./config')
 
-const connection = mysql.createConnection(process.env.SQL_HOST)
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: process.env.PROJECT,
+    clientEmail: process.env.MAIL,
+    privateKey: process.env.FIREBASE
+  }),
+  databaseURL: process.env.FIREBASE_URL
+})
+
+// const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -43,11 +55,18 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), () => {
-    connection.query('SELECT phone FROM Phones WHERE phone LIKE "+185%"', function (error, results, fields) {
-      if (error) console.error(error)
-      if (results) {
-        console.log(results)
-      }
+    // connection.query('SELECT phone FROM Phones WHERE phone LIKE "+185%"', function (error, results, fields) {
+    //   if (error) console.error(error)
+    //   if (results) {
+    //     console.log(results)
+    //   }
+    // })
+    const db = admin.database()
+    const ref = db.ref('/')
+    ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
+      console.log(snapshot.val())
+    }, (errorObject) => {
+      console.log('The read failed: ' + errorObject.code)
     })
     deleteConv('1696871486992920')
     deleteConv('U5CJZS8V9')
