@@ -77,7 +77,6 @@ export const getFireResult = (number) => {
       const ref = db.ref('/')
       ref.child('Phones').child(number).once('value', (data) => {
         db.goOffline()
-        console.log('data: ', data.val())
         resolve(data.val())
       })
     } catch (e) {

@@ -284,7 +284,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       }
       try {
         var numRes = await getFireResult(num)
-        if (numRes && numRes.length) {
+        if (numRes) {
           console.log(numRes)
           result.replies.forEach((replyContent, i) => {
             if (i < length) {
