@@ -322,22 +322,17 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         }
       } catch (e) {
         modConv(message.senderId, {
-          'loc': null,
-          'non': null,
-          'oui': null,
-          'rep1': null,
-          'rep2': null,
           'tel': null
         })
         console.log(e)
         result.replies.forEach((replyContent, i) => {
-          message.addReply({ type: 'text', content: replyContent })
+          message.addReply({ type: 'text', content: 'An error is generated please enter again your number' })
         })
       }
     } else {
       console.log('no matching')
       result.replies.forEach((replyContent, i) => {
-        message.addReply({ type: 'text', content: replyContent })
+        message.addReply({ type: 'text', content: 'The format of your number is not recognized' })
       })
     }
   } else {

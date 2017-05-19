@@ -315,21 +315,16 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       } catch (e) {
         console.log(e)
         modConv(message.senderId, {
-          'loc': null,
-          'non': null,
-          'oui': null,
-          'rep1': null,
-          'rep2': null,
           'tel': null
         })
         result.replies.forEach((replyContent, i) => {
-          message.addReply({ type: 'text', content: replyContent })
+          message.addReply({ type: 'text', content: 'Une erreur c\'est produite veuillez nous recommuniquer votre numéro' })
         })
       }
     } else {
       console.log('no matching')
       result.replies.forEach((replyContent, i) => {
-        message.addReply({ type: 'text', content: replyContent })
+        message.addReply({ type: 'text', content: 'Le format de votre numéro n\'est pas reconnu' })
       })
     }
   } else {
