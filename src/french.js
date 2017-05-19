@@ -306,7 +306,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
                   ]
                 }
               })
-              modConv(message.senderId, {tel: num})
+              modConv(message.senderId, {tel: {value: num}})
             }
           })
         } else {
