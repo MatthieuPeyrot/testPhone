@@ -6,7 +6,7 @@
 import RECASTAI from 'recastai'
 import frenchReply from './french'
 import englishReply from './english'
-import {GetFBInfo, modConv, getFireResult} from './utils'
+import {GetFBInfo, modConv} from './utils'
 
 const replyMessage = async (message) => {
   // Instantiate Recast.AI SDK, just for request service
@@ -18,12 +18,6 @@ const replyMessage = async (message) => {
   console.log('I receive: ', text)
 
 // TODO: need to integrate language by bdd here for more faster response
-  try {
-    const response = await getFireResult('+33761391453')
-    console.log(response)
-  } catch (e) {
-    console.log(e)
-  }
 
   const senderId = message.senderId
   const userName = message.message.data.userName
