@@ -112,3 +112,33 @@ export const getFireBot = (convId) => {
     }
   })
 }
+
+export const updateFireBot = (convId, obj) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
+      var key = decipher.update(fire, 'base64', 'utf8')
+      key += decipher.final('utf8')
+      const app = admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.PROJECT,
+          clientEmail: process.env.MAIL,
+          privateKey: key
+        }),
+        databaseURL: process.env.FIREBASE_URL
+      })
+      const db = admin.database()
+      const ref = db.ref('/')
+      ref.child('Services').orderByChild('Bot').equalTo(convId).once('value', (data) => {
+        var botValue = data.exists() ? data.val() : {}
+        botValue = Object.assign({}, botValue, obj)
+        ref.child('Services').orderByChild('Bot').equalTo(convId).set(botValue)
+        db.goOffline()
+        app.delete()
+        resolve(true)
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
