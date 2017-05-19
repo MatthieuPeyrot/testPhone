@@ -75,11 +75,8 @@ export const getFireResult = (number) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Phones').child(number).on('value', (snapshot) => {
-        ref.off()
-        resolve(snapshot.val())
-      }, (errorObject) => {
-        reject('The read failed: ' + errorObject.code)
+      ref.child('Phones').child(number).once('value', (data) => {
+        resolve(data.val())
       })
     } catch (e) {
       reject(e)
