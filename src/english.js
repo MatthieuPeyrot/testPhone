@@ -314,6 +314,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
                   ]
                 }
               })
+              modConv(message.senderId, {tel: num})
             }
           })
         } else {
