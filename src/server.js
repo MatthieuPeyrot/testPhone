@@ -69,7 +69,7 @@ if (!process.env.REQUEST_TOKEN.length) {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
+      ref.child('Phones').child('+33761391453').on('value', (snapshot) => {
         console.log(snapshot.val())
       }, (errorObject) => {
         console.log('The read failed: ' + errorObject.code)
