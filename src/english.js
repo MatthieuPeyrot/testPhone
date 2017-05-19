@@ -204,21 +204,39 @@ const englishReply = async (result, message, text, isFB, local, length) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })
           } else {
-            message.addReply({
-              type: 'card',
-              content: {
-                title: 'Contact Voxist to test our app',
-                subtitle: 'This will initiate a voice call',
-                imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
-                buttons: [
-                  {
-                    title: 'Call',
-                    type: 'phone_number',
-                    value: '+33761391453'
-                  }
-                ]
-              }
-            })
+            if (local === 'FR') {
+              message.addReply({
+                type: 'card',
+                content: {
+                  title: 'Contact Voxist to test our app',
+                  subtitle: 'This will initiate a voice call',
+                  imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
+                  buttons: [
+                    {
+                      title: 'Call',
+                      type: 'phone_number',
+                      value: '+33761391453'
+                    }
+                  ]
+                }
+              })
+            } else {
+              message.addReply({
+                type: 'card',
+                content: {
+                  title: 'Contact Voxist to test our app',
+                  subtitle: 'This will initiate a voice call',
+                  imageUrl: 'https://images-platform.99static.com/bSeJTjKXpO84gGORB5WWwckBcbc=/0x0:1205x1205/fit-in/900x675/99designs-contests-attachments/72/72376/attachment_72376810',
+                  buttons: [
+                    {
+                      title: 'Call',
+                      type: 'phone_number',
+                      value: '+33761391453'
+                    }
+                  ]
+                }
+              })
+            }
           }
         })
       } else {
@@ -226,10 +244,17 @@ const englishReply = async (result, message, text, isFB, local, length) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })
           } else {
-            message.addReply({
-              type: 'text',
-              content: 'Contact Voxist to test our app. \nPress <tel://33-7-61-39-14-53|here> will start a voice call'
-            })
+            if (local === 'FR') {
+              message.addReply({
+                type: 'text',
+                content: 'Contact Voxist to test our app. \nPress <tel://33-7-61-39-14-53|here> will start a voice call'
+              })
+            } else {
+              message.addReply({
+                type: 'text',
+                content: 'Contact Voxist to test our app. \nPress <tel://33-7-61-39-14-53|here> will start a voice call'
+              })
+            }
           }
         })
       }

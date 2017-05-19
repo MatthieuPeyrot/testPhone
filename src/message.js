@@ -17,7 +17,7 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
-  console.log('message: ', message)
+// TODO: need to integrate language by bdd here for more faster response
 
   const senderId = message.senderId
   const userName = message.message.data.userName

@@ -27,7 +27,6 @@ import replyMessage from './message'
 export const bot = (body, response, callback) => {
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
   if (body.message) {
-    console.log(body)
     /*
     * Call the Recast.AI SDK function to handle message from Bot Connector
     * This function will:
