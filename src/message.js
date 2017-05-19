@@ -6,7 +6,7 @@
 import RECASTAI from 'recastai'
 import frenchReply from './french'
 import englishReply from './english'
-import {GetFBInfo} from './utils'
+import {GetFBInfo, modConv} from './utils'
 
 const replyMessage = async (message) => {
   // Instantiate Recast.AI SDK, just for request service
@@ -105,14 +105,30 @@ const replyMessage = async (message) => {
           message = await frenchReply(result, message, text, isFB, local, length)
         } catch (e) {
           console.log(e)
-          message.addReply({ type: 'text', content: 'Une erreur est survenue, veuillez nous en excuser' })
+          message.addReply({ type: 'text', content: 'Une erreur est survenue, veuillez nous en excuser et recommencer le processus' })
+          modConv(senderId, {
+            'loc': null,
+            'non': null,
+            'oui': null,
+            'rep1': null,
+            'rep2': null,
+            'tel': null
+          })
         }
       } else {
         try {
           message = await englishReply(result, message, text, isFB, local, length)
         } catch (e) {
           console.log(e)
-          message.addReply({ type: 'text', content: 'An error has occurred, please excuse us' })
+          message.addReply({ type: 'text', content: 'An error has occurred, please excuse us and restart the process' })
+          modConv(senderId, {
+            'loc': null,
+            'non': null,
+            'oui': null,
+            'rep1': null,
+            'rep2': null,
+            'tel': null
+          })
         }
       }
     }

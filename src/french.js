@@ -241,6 +241,14 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         num = phoneUtil.format(phoneUtil.parse(text, local || 'FR'), PNF.E164)
       } catch (e) {
         console.log('no matching')
+        modConv(message.senderId, {
+          'loc': null,
+          'non': null,
+          'oui': null,
+          'rep1': null,
+          'rep2': null,
+          'tel': null
+        })
         result.replies.forEach((replyContent, i) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })
@@ -306,6 +314,14 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         }
       } catch (e) {
         console.log(e)
+        modConv(message.senderId, {
+          'loc': null,
+          'non': null,
+          'oui': null,
+          'rep1': null,
+          'rep2': null,
+          'tel': null
+        })
         result.replies.forEach((replyContent, i) => {
           message.addReply({ type: 'text', content: replyContent })
         })
