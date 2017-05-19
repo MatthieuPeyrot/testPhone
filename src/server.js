@@ -15,7 +15,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import {bot} from './bot'
 // import mysql from 'mysql'
-import {deleteConv, getFireResult} from './utils'
+import {deleteConv, getFireNumber} from './utils'
 
 require('./config')
 
@@ -50,7 +50,7 @@ if (!process.env.REQUEST_TOKEN.length) {
     //   }
     // })
     try {
-      const result = await getFireResult('+33761391453')
+      const result = await getFireNumber('+33761391453')
       console.log(result)
     } catch (e) {
       console.log(e)

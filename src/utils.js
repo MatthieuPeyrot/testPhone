@@ -59,7 +59,7 @@ export const modConv = (convId, memory) => {
     })
 }
 
-export const getFireResult = (number) => {
+export const getFireNumber = (number) => {
   return new Promise((resolve, reject) => {
     try {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
@@ -76,6 +76,33 @@ export const getFireResult = (number) => {
       const db = admin.database()
       const ref = db.ref('/')
       ref.child('Phones').child(number).once('value', (data) => {
+        db.goOffline()
+        app.delete()
+        resolve(data.val())
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+export const getFireBot = (convId) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
+      var key = decipher.update(fire, 'base64', 'utf8')
+      key += decipher.final('utf8')
+      const app = admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.PROJECT,
+          clientEmail: process.env.MAIL,
+          privateKey: key
+        }),
+        databaseURL: process.env.FIREBASE_URL
+      })
+      const db = admin.database()
+      const ref = db.ref('/')
+      ref.child('Services').orderByChild('Bot').equalTo(convId).once('value', (data) => {
         db.goOffline()
         app.delete()
         resolve(data.val())
