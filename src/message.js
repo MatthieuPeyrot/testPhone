@@ -10,14 +10,18 @@ import {GetFBInfo, modConv} from './utils'
 import * as admin from 'firebase-admin'
 
 const replyMessage = async (message) => {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.PROJECT,
-      clientEmail: process.env.MAIL,
-      privateKey: process.env.FIREBASE
-    }),
-    databaseURL: process.env.FIREBASE_URL
-  })
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: process.env.PROJECT,
+        clientEmail: process.env.MAIL,
+        privateKey: process.env.FIREBASE
+      }),
+      databaseURL: process.env.FIREBASE_URL
+    })
+  } catch (e) {
+    console.log(e)
+  }
 
   // Instantiate Recast.AI SDK, just for request service
   const client = new RECASTAI(process.env.REQUEST_TOKEN)
