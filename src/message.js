@@ -32,14 +32,17 @@ const replyMessage = async (message) => {
   console.log('I receive: ', text)
 
 // TODO: need to integrate language by bdd here for more faster response
-
-  const db = admin.database()
-  const ref = db.ref('/')
-  ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
-    console.log(snapshot.val())
-  }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.code)
-  })
+  try {
+    const db = admin.database()
+    const ref = db.ref('/')
+    ref.child('Phones').child('+33603434684').on('value', (snapshot) => {
+      console.log(snapshot.val())
+    }, (errorObject) => {
+      console.log('The read failed: ' + errorObject.code)
+    })
+  } catch (e) {
+    console.log(e)
+  }
 
   const senderId = message.senderId
   const userName = message.message.data.userName
