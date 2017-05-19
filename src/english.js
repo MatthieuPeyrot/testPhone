@@ -298,22 +298,41 @@ const englishReply = async (result, message, text, isFB, local, length) => {
             if (i < length) {
               message.addReply({ type: 'text', content: replyContent })
             } else {
-              message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Would you prefer to be contacted by Messenger or Voxist?',
-                  buttons: [
-                    {
-                      title: 'Messenger',
-                      value: 'our bot'
-                    },
-                    {
-                      title: 'Voxist',
-                      value: 'voxist app'
-                    }
-                  ]
-                }
-              })
+              if (isFB) {
+                message.addReply({
+                  type: 'quickReplies',
+                  content: {
+                    title: 'Would you prefer to be contacted by Messenger or Voxist?',
+                    buttons: [
+                      {
+                        title: 'Messenger',
+                        value: 'our bot'
+                      },
+                      {
+                        title: 'Voxist',
+                        value: 'voxist app'
+                      }
+                    ]
+                  }
+                })
+              } else {
+                message.addReply({
+                  type: 'quickReplies',
+                  content: {
+                    title: 'Would you prefer to be contacted by Slack or Voxist?',
+                    buttons: [
+                      {
+                        title: 'Slack',
+                        value: 'our bot'
+                      },
+                      {
+                        title: 'Voxist',
+                        value: 'voxist app'
+                      }
+                    ]
+                  }
+                })
+              }
               modConv(message.senderId, {tel: {value: num}})
             }
           })

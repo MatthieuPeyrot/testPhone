@@ -290,22 +290,41 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
             if (i < length) {
               message.addReply({ type: 'text', content: replyContent })
             } else {
-              message.addReply({
-                type: 'quickReplies',
-                content: {
-                  title: 'Préférez vous être contacté par Messenger ou Voxist?',
-                  buttons: [
-                    {
-                      title: 'Messenger',
-                      value: 'notre bot'
-                    },
-                    {
-                      title: 'Voxist',
-                      value: 'l\'application voxist'
-                    }
-                  ]
-                }
-              })
+              if (isFB) {
+                message.addReply({
+                  type: 'quickReplies',
+                  content: {
+                    title: 'Préférez vous être contacté par Messenger ou Voxist?',
+                    buttons: [
+                      {
+                        title: 'Messenger',
+                        value: 'notre bot'
+                      },
+                      {
+                        title: 'Voxist',
+                        value: 'l\'application voxist'
+                      }
+                    ]
+                  }
+                })
+              } else {
+                message.addReply({
+                  type: 'quickReplies',
+                  content: {
+                    title: 'Préférez vous être contacté par Slack ou Voxist?',
+                    buttons: [
+                      {
+                        title: 'Slack',
+                        value: 'notre bot'
+                      },
+                      {
+                        title: 'Voxist',
+                        value: 'l\'application voxist'
+                      }
+                    ]
+                  }
+                })
+              }
               modConv(message.senderId, {tel: {value: num}})
             }
           })
