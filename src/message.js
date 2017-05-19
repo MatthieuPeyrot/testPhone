@@ -80,7 +80,7 @@ const replyMessage = async (message) => {
           local = null
       }
     }
-    if (local === 'FR') {
+    if (local === 'FR' || result.language === 'fr') {
       loacalLanguage = local.toLocaleLowerCase()
     } else {
       loacalLanguage = 'en'
