@@ -65,7 +65,7 @@ export const getFireResult = (number) => {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
       var key = decipher.update(fire, 'base64', 'utf8')
       key += decipher.final('utf8')
-      admin.initializeApp({
+      const app = admin.initializeApp({
         credential: admin.credential.cert({
           projectId: process.env.PROJECT,
           clientEmail: process.env.MAIL,
@@ -77,6 +77,7 @@ export const getFireResult = (number) => {
       const ref = db.ref('/')
       ref.child('Phones').child(number).once('value', (data) => {
         db.goOffline()
+        app.delete()
         resolve(data.val())
       })
     } catch (e) {
