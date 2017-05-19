@@ -17,6 +17,8 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
+  console.log('message: ', message)
+
   const senderId = message.senderId
   const userName = message.message.data.userName
 
