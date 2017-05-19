@@ -261,7 +261,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
           if (i < length) {
             message.addReply({ type: 'text', content: replyContent })
           } else {
-            message.addReply({ type: 'text', content: replyContent })
+            message.addReply({ type: 'text', content: 'The format of your number is not recognized' })
           }
         })
       }
