@@ -59,30 +59,20 @@ export const modConv = (convId, memory) => {
     })
 }
 
-export const getFireConnection = () => {
-  try {
-    const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
-    var key = decipher.update(fire, 'base64', 'utf8')
-    key += decipher.final('utf8')
-    admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId: process.env.PROJECT,
-        clientEmail: process.env.MAIL,
-        privateKey: key
-      }),
-      databaseURL: process.env.FIREBASE_URL
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return new Promise((resolve, reject) => {
-    resolve(admin)
-  })
-}
-
-export const getFireResult = (admin, number) => {
+export const getFireResult = (number) => {
   return new Promise((resolve, reject) => {
     try {
+      const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
+      var key = decipher.update(fire, 'base64', 'utf8')
+      key += decipher.final('utf8')
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.PROJECT,
+          clientEmail: process.env.MAIL,
+          privateKey: key
+        }),
+        databaseURL: process.env.FIREBASE_URL
+      })
       const db = admin.database()
       const ref = db.ref('/')
       ref.child('Phones').child(number).on('value', (snapshot) => {

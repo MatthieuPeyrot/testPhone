@@ -1,6 +1,6 @@
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
-import {Query, modConv} from './utils'
+import {getFireResult, modConv} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0] && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
@@ -283,7 +283,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         })
       }
       try {
-        var numRes = await Query(num)
+        var numRes = await getFireResult(num)
         if (numRes && numRes.length) {
           console.log(numRes)
           result.replies.forEach((replyContent, i) => {
