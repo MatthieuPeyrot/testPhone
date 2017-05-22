@@ -132,8 +132,8 @@ export const updateFireBot = (convId, obj, phone) => {
       ref.child('Phones').child(phone).once('value', (data) => {
         var botValue = {}
         if (data.exists()) {
-          console.log(data.val())
-          ref.child('Services').orderByChild('uuid').equalTo(data.val()).once('value', (data2) => {
+          console.log(data.val().uuid)
+          ref.child('Services').orderByChild('uuid').equalTo(data.val().uuid).once('value', (data2) => {
             botValue = data2.val()
             botValue = Object.assign({}, botValue, obj)
             console.log(botValue)
