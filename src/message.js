@@ -38,7 +38,7 @@ const replyMessage = async (message) => {
 
   console.log('AppUserId: ', senderId)
 
-  // console.log('conversationToken: ', message.conversationId)
+  console.log('conversationToken: ', message.conversationId)
   // Call Recast.AI SDK, through /converse route
 
   request.converseText(text, { conversationToken: senderId })
