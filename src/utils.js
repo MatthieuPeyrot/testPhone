@@ -134,12 +134,24 @@ export const updateFireBot = (convId, obj, phone) => {
         if (data.exists()) {
           console.log(data.val().uuid)
           ref.child('Services').orderByChild('uuid').equalTo(data.val().uuid).once('value', (data2) => {
-            botValue = data2.val()
+            console.log(data2)
+            if (data2.exists()) {
+              botValue = data2.val()
+              botValue = Object.assign({}, botValue, obj)
+              console.log(botValue)
+            }
+            console.log('no value')
+          })
+          if (botValue === {}) {
             botValue = Object.assign({}, botValue, obj)
             console.log(botValue)
-          })
+          } else {
+            console.log(botValue)
+          }
           // ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
         } else {
+          db.goOffline()
+          app.delete()
           resolve(false)
         }
         db.goOffline()
