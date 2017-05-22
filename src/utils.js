@@ -113,7 +113,7 @@ export const getFireBot = (uuid, convId) => {
   })
 }
 
-export const updateFireBot = (convId, obj, uuid) => {
+export const updateFireBot = (obj, uuid) => {
   return new Promise((resolve, reject) => {
     try {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)

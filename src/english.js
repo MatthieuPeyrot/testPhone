@@ -387,7 +387,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
     if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
       console.log('enter')
       try {
-        await updateFireBot(message.senderId, {name: (isFB ? 'facebook' : 'slack'), type: (isFB ? 'facebook' : 'slack'), access: message.senderId}, result.memory.tel.value)
+        await updateFireBot({name: (isFB ? 'facebook' : 'slack'), type: (isFB ? 'facebook' : 'slack'), access: message.conversationId}, result.memory.tel.value)
       } catch (e) {
         console.log(e)
       }
