@@ -129,17 +129,17 @@ export const updateFireBot = (convId, obj, phone) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Services').orderByChild('access').equalTo(convId).once('value', (data) => {
+      ref.child('Phones').child(phone).once('value', (data) => {
         var botValue = {}
         if (data.exists()) {
-          botValue = data.val()
-          botValue = Object.assign({}, botValue, obj)
-          console.log(botValue)
+          ref.child('Services').orderByChild('uuid').equalTo(data.val()).once('value', (data2) => {
+            botValue = data2.val()
+            botValue = Object.assign({}, botValue, obj)
+            console.log(botValue)
+          })
           // ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
         } else {
-          ref.child('Phones').child(phone).once('value', (data2) => {
-            console.log(data2)
-          })
+          resolve(false)
         }
         db.goOffline()
         app.delete()
