@@ -102,7 +102,7 @@ export const getFireBot = (convId) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Services').orderByChild('Bot').equalTo(convId).once('value', (data) => {
+      ref.child('Services').orderByChild('access').equalTo(convId).once('value', (data) => {
         db.goOffline()
         app.delete()
         resolve(data.val())
@@ -129,10 +129,10 @@ export const updateFireBot = (convId, obj) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Services').orderByChild('Bot').equalTo(convId).once('value', (data) => {
+      ref.child('Services').orderByChild('access').equalTo(convId).once('value', (data) => {
         var botValue = data.exists() ? data.val() : {}
         botValue = Object.assign({}, botValue, obj)
-        ref.child('Services').orderByChild('Bot').equalTo(convId).set(botValue)
+        ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
         db.goOffline()
         app.delete()
         resolve(true)
