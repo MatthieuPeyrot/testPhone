@@ -43,7 +43,7 @@ export const deleteConv = (convId) => {
     .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
     .end((err, res) => {
       if (err) console.log(err)
-      console.log(res.body)
+      // console.log(res.body)
     })
 }
 
@@ -55,7 +55,7 @@ export const modConv = (convId, memory) => {
     .set('Authorization', `Token ${process.env.REQUEST_TOKEN}`)
     .end((err, res) => {
       if (err) console.log(err)
-      console.log(res.body)
+      // console.log(res.body)
     })
 }
 
@@ -113,7 +113,7 @@ export const getFireBot = (convId) => {
   })
 }
 
-export const updateFireBot = (convId, obj) => {
+export const updateFireBot = (convId, obj, phone) => {
   return new Promise((resolve, reject) => {
     try {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
@@ -130,9 +130,17 @@ export const updateFireBot = (convId, obj) => {
       const db = admin.database()
       const ref = db.ref('/')
       ref.child('Services').orderByChild('access').equalTo(convId).once('value', (data) => {
-        var botValue = data.exists() ? data.val() : {}
-        botValue = Object.assign({}, botValue, obj)
-        ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
+        var botValue = {}
+        if (data.exists()) {
+          botValue = data.val()
+          botValue = Object.assign({}, botValue, obj)
+          console.log(botValue)
+          // ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
+        } else {
+          ref.child('Phones').child(phone).once('value', (data2) => {
+            console.log(data2)
+          })
+        }
         db.goOffline()
         app.delete()
         resolve(true)

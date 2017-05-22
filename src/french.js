@@ -1,6 +1,6 @@
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
-import {getFireNumber, modConv} from './utils'
+import {getFireNumber, modConv, updateFireBot} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0] && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
@@ -371,6 +371,13 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       result.replies.forEach((replyContent, i) => {
         message.addReply({ type: 'text', content: 'Le format de votre numéro n\'est pas reconnu' })
       })
+    }
+  } else if ((result.action && result.action.slug === 'messengerfirst' && result.action.done && /\+/.test(text)) || (result.entities && result.entities.choix1 && /\+/.test(text))) {
+    result.replies.forEach((replyContent, i) => {
+      message.addReply({ type: 'text', content: replyContent })
+    })
+    if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
+      updateFireBot(message.senderId, {name: 'bot', type: isFB ? 'facebook' : 'slack', access: message.senderId}, result.memory.tel.value)
     }
   } else {
     result.replies.forEach((replyContent, i) => {
