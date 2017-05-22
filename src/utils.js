@@ -74,8 +74,8 @@ export const getFireNumber = (number) => {
         databaseURL: process.env.FIREBASE_URL
       })
       const db = admin.database()
-      const ref = db.ref('/')
-      ref.child('Phones').child(number).once('value', (data) => {
+      const ref = db.ref('/Phones')
+      ref.child(number).once('value', (data) => {
         db.goOffline()
         app.delete()
         resolve(data.val())
@@ -101,9 +101,8 @@ export const getFireBot = (uuid, convId) => {
         databaseURL: process.env.FIREBASE_URL
       })
       const db = admin.database()
-      const ref = db.ref('/')
-      ref.child('Services').child(uuid).orderByChild('access').equalTo(convId).once('value', (data) => {
-        console.log(data.exists())
+      const ref = db.ref('/Services')
+      ref.child(uuid).orderByChild('access').equalTo(convId).once('value', (data) => {
         db.goOffline()
         app.delete()
         resolve(data.val())
@@ -129,26 +128,11 @@ export const updateFireBot = (convId, obj, uuid) => {
         databaseURL: process.env.FIREBASE_URL
       })
       const db = admin.database()
-      const ref = db.ref('/')
-      var botValue = null
-      var bol = false
-      console.log(uuid)
-      ref.child('Services').child(uuid).once('value', (data) => {
-        if (data.exists()) {
-          botValue = data.val()
-          console.log(botValue.length)
-          for (let i = 0; i < botValue.length; i++) {
-            if (botValue[i].name === obj.name) {
-              bol = true
-            }
-          }
-          !bol ? botValue[botValue.length] = obj : null
-          console.log('botValue: ', botValue)
-        } else {
-          botValue = {0: obj}
-          console.log('botValue no exist: ', botValue)
+      const ref = db.ref('/Services')
+      ref.child(uuid).orderByChild('type').equalTo(obj.type).once('value', (data) => {
+        if (!data.exists()) {
+          ref.child('Services').child(uuid).push(obj)
         }
-        ref.child('Services').child(uuid).set(botValue)
         db.goOffline()
         app.delete()
         resolve(true)
