@@ -20,7 +20,7 @@ const replyMessage = async (message) => {
 // TODO: need to integrate language by bdd here for more faster response
 
   const senderId = message.senderId
-  const userName = message.message.data.userName
+  const userName = message && message.message && message.message.data && message.message.data.userName ? message.message.data.userName : null
 
   var isFB = false
   var local = null
