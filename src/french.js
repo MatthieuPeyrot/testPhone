@@ -325,7 +325,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
                   }
                 })
               }
-              modConv(message.senderId, {tel: {value: num}})
+              modConv(message.senderId, {tel: {value: num, raw: numRes.uuid}})
             }
           })
         } else {
@@ -379,7 +379,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
     if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
       console.log('enter')
       try {
-        await updateFireBot(message.senderId, {name: 'bot', type: isFB ? 'facebook' : 'slack', access: message.senderId}, result.memory.tel.value)
+        await updateFireBot(message.senderId, {name: 'bot' + isFB ? 'facebook' : 'slack', type: isFB ? 'facebook' : 'slack', access: message.senderId}, result.memory.tel.raw)
       } catch (e) {
         console.log(e)
       }

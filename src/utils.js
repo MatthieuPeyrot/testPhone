@@ -113,7 +113,7 @@ export const getFireBot = (convId) => {
   })
 }
 
-export const updateFireBot = (convId, obj, phone) => {
+export const updateFireBot = (convId, obj, uuid) => {
   return new Promise((resolve, reject) => {
     try {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
@@ -129,31 +129,25 @@ export const updateFireBot = (convId, obj, phone) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Phones').child(phone).once('value', (data) => {
-        var botValue = {}
+      var botValue = null
+      var bol = false
+      console.log(uuid)
+      ref.child('Services').child(uuid).once('value', (data) => {
         if (data.exists()) {
-          console.log(data.val().uuid)
-          ref.child('Services').orderByChild('uuid').equalTo(data.val().uuid).once('value', (data2) => {
-            console.log(data2)
-            if (data2.exists()) {
-              botValue = data2.val()
-              botValue = Object.assign({}, botValue, obj)
-              console.log(botValue)
+          botValue = data.val()
+          console.log(botValue.length)
+          for (let i = 0; i < botValue.length; i++) {
+            if (botValue[i].name === obj.name) {
+              bol = true
             }
-            console.log('no value')
-          })
-          if (botValue === {}) {
-            botValue = Object.assign({}, botValue, obj)
-            console.log(botValue)
-          } else {
-            console.log(botValue)
           }
-          // ref.child('Services').orderByChild('access').equalTo(convId).set(botValue)
+          !bol ? botValue[botValue.length] = obj : null
+          console.log('botValue: ', botValue)
         } else {
-          db.goOffline()
-          app.delete()
-          resolve(false)
+          botValue = {0: obj}
+          console.log('botValue no exist: ', botValue)
         }
+        ref.child('Services').child(uuid).set(botValue)
         db.goOffline()
         app.delete()
         resolve(true)
