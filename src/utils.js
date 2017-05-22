@@ -86,7 +86,7 @@ export const getFireNumber = (number) => {
   })
 }
 
-export const getFireBot = (convId) => {
+export const getFireBot = (uuid, convId) => {
   return new Promise((resolve, reject) => {
     try {
       const decipher = crypto.createDecipher(process.env.MYHASH, process.env.PRIVATE)
@@ -102,7 +102,8 @@ export const getFireBot = (convId) => {
       })
       const db = admin.database()
       const ref = db.ref('/')
-      ref.child('Services').orderByChild('access').equalTo(convId).once('value', (data) => {
+      ref.child('Services').child(uuid).orderByChild('access').equalTo(convId).once('value', (data) => {
+        console.log(data.exists())
         db.goOffline()
         app.delete()
         resolve(data.val())
