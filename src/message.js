@@ -17,6 +17,8 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
+  console.log('message: ' + message)
+
 // TODO: need to integrate language by bdd here for more faster response
 
   const senderId = message.senderId
@@ -43,9 +45,6 @@ const replyMessage = async (message) => {
 
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
-    // while (result.action && result.action.slug && result.action.slug !== 'oui' && result.replies.length > 1) {
-    //   result.replies.pop()
-    // }
     if (!local && result.memory && result.memory.loc && result.memory.loc.formatted) {
       console.log(result.memory.loc.formatted.toLowerCase())
       switch (result.memory.loc.formatted.toLowerCase()) {
@@ -95,6 +94,8 @@ const replyMessage = async (message) => {
     console.log('loacalLanguage: ', loacalLanguage)
     console.log(result.replies.length)
     const length = result.replies.length - 1
+
+    console.log('result: ' + result)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
