@@ -14,12 +14,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import {bot} from './bot'
-// import mysql from 'mysql'
+import mysql from 'mysql'
 import {deleteConv, getFireNumber, updateFireBot, getFireBot} from './utils'
 
 require('./config')
 
-// const connection = mysql.createConnection(process.env.SQL_HOST)
+const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -43,15 +43,15 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), async () => {
-    // connection.query('SELECT phone FROM Phones WHERE phone LIKE "+185%"', function (error, results, fields) {
-    //   if (error) console.error(error)
-    //   if (results) {
-    //     console.log(results)
-    //   }
-    // })
+    connection.query('SELECT * FROM Voicemails', function (error, results, fields) {
+      if (error) console.error(error)
+      if (results) {
+        console.log(results)
+      }
+    })
     try {
       const result = await getFireNumber('+33761391453')
-      // await updateFireBot('1696871486992920', {name: 'bot', type: 'facebook', access: '1696871486992920'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
+      // await updateFireBot({name: 'bot', type: 'facebook', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
       const service = await getFireBot('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', '1696871486992920')
       console.log(service)
       console.log(result)
