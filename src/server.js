@@ -54,7 +54,7 @@ if (!process.env.REQUEST_TOKEN.length) {
       // await updateFireBot({name: 'bot', type: 'facebook-fr', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
       const service = await getFireBot('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', '1696871486992920')
       console.log(service)
-      // console.log(result)
+      console.log(result)
     } catch (e) {
       console.log(e)
     }
