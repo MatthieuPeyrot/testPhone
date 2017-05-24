@@ -37,7 +37,11 @@ export const bot = (body, response, callback) => {
     * If you want to edit the behaviour of your code bot, depending on user input,
     * go to /src/message.js file and write your own code under "YOUR OWN CODE" comment.
     */
-    client.connect.handleMessage({ body }, response, replyMessage)
+    try {
+      client.connect.handleMessage({ body }, response, replyMessage)
+    } catch (e) {
+      console.log(e)
+    }
 
     /*
      * This function is called by Recast.AI hosting system when your code will be hosted
