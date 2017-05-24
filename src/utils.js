@@ -131,7 +131,7 @@ export const updateFireBot = (obj, uuid) => {
       const ref = db.ref('/Services')
       ref.child(uuid).orderByChild('type').equalTo(obj.type).once('value', (data) => {
         if (!data.exists()) {
-          ref.child('Services').child(uuid).push(obj)
+          ref.child(uuid).push(obj)
         }
         db.goOffline()
         app.delete()

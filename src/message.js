@@ -17,7 +17,7 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
-  console.log('message: ' + message)
+  console.log('message: ' + message.chatId)
 
 // TODO: need to integrate language by bdd here for more faster response
 
