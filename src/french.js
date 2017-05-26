@@ -1,6 +1,6 @@
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
-import {getFireNumber, modConv, updateFireBot} from './utils'
+import {getFireNumber, modConv, updateFireBot, updateFireBot2} from './utils'
 
 const frenchReply = async (result, message, text, isFB, local, length) => {
   if (((result.action && result.action.slug === 'bonjour' && result.action.done) || (result.nextActions && result.nextActions[0] && result.nextActions[0].slug === 'oui' && !result.nextActions[0].done)) || (result.entities && result.entities.salutations)) {
@@ -400,9 +400,25 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       }
     })
     if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
-      console.log('enter')
       try {
         await updateFireBot({name: (isFB ? 'facebook' : 'slack') + '-fr', type: (isFB ? 'facebook' : 'slack'), access: (isFB ? [message.conversationId] : [message.conversationId, message.chatId])}, result.memory.tel.value)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  } else if ((result.action && result.action.slug === 'pub' && result.action.done && /\+/.test(result.memory.tel.raw)) || (result.entities && result.entities.choix3 && /\+/.test(result.memory.tel.raw))) {
+    result.replies.forEach((replyContent, i) => {
+      if (i < length) {
+        message.addReply({ type: 'text', content: replyContent })
+      } else {
+        message.addReply({ type: 'text', content: replyContent })
+      }
+    })
+    if (['not at all', 'every 15', 'every 30', 'pas une seule fois', 'tout les 15', 'tout les 30'].indexOf(text.toLocaleLowerCase) > -1) {
+      var value = ['not at all', 'every 15', 'every 30', 'pas une seule fois', 'tout les 15', 'tout les 30'].indexOf(text.toLocaleLowerCase)
+      value = value === 0 || value === 3 ? 0 : value === 1 || value === 4 ? 15 : value === 2 || value === 5 ? 30 : 0
+      try {
+        await updateFireBot2(result.memory.tel.value, (isFB ? 'facebook' : 'slack'), value)
       } catch (e) {
         console.log(e)
       }
