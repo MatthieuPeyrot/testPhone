@@ -388,19 +388,19 @@ const englishReply = async (result, message, text, isFB, local, length) => {
         message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Voulez vous recevoir de la pub? Si oui, a quelle date?',
+            title: 'Do you want to receive ads? If so, on what date?',
             buttons: [
               {
-                title: 'non',
-                value: 'jamais'
+                title: 'no',
+                value: 'never'
               },
               {
-                title: 'tout les 15 jours',
-                value: 'tout les 15'
+                title: 'Every 15 days',
+                value: 'every 15'
               },
               {
-                title: 'tout les mois',
-                value: 'tout les 30'
+                title: 'Every 30 days',
+                value: 'every 30'
               }
             ]
           }
