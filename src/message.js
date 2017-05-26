@@ -94,7 +94,6 @@ const replyMessage = async (message) => {
     console.log('loacalLanguage: ', loacalLanguage)
     const length = result.replies.length - 1
 
-    console.log('conv: ', result.conversationToken)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.

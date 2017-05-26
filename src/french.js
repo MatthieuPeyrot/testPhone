@@ -373,6 +373,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       })
     }
   } else if ((result.action && result.action.slug === 'messengerfirst' && result.action.done && /\+/.test(result.memory.tel.raw)) || (result.entities && result.entities.choix1 && /\+/.test(result.memory.tel.raw))) {
+    console.log(result.replies.length)
     result.replies.forEach((replyContent, i) => {
       message.addReply({ type: 'text', content: replyContent })
     })
