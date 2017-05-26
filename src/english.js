@@ -392,7 +392,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
             buttons: [
               {
                 title: 'no',
-                value: 'never'
+                value: 'not at all'
               },
               {
                 title: 'Every 15 days',
