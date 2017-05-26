@@ -418,6 +418,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
       var value = ['not at all', 'every 15', 'every 30', 'pas une seule fois', 'tout les 15', 'tout les 30'].indexOf(text.toLocaleLowerCase)
       value = value === 0 || value === 3 ? 0 : value === 1 || value === 4 ? 15 : value === 2 || value === 5 ? 30 : 0
       try {
+        console.log('enter')
         await updateFireBot2(result.memory.tel.value, (isFB ? 'facebook' : 'slack'), value)
       } catch (e) {
         console.log(e)
