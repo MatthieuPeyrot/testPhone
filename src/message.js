@@ -17,7 +17,7 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
-  console.log('message: ', message)
+  console.log('message: ', message.conversationId)
 
 // TODO: need to integrate language by bdd here for more faster response
 
@@ -95,7 +95,7 @@ const replyMessage = async (message) => {
     console.log(result.replies.length)
     const length = result.replies.length - 1
 
-    console.log('result: ', result)
+    console.log('result: ', result.conversationToken)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
