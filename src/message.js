@@ -17,7 +17,7 @@ const replyMessage = async (message) => {
 
   console.log('I receive: ', text)
 
-  console.log('message: ', message.conversationId)
+  console.log('channel: ', message.chatId)
 
 // TODO: need to integrate language by bdd here for more faster response
 
@@ -95,7 +95,7 @@ const replyMessage = async (message) => {
     console.log(result.replies.length)
     const length = result.replies.length - 1
 
-    console.log('result: ', result.conversationToken)
+    console.log('conv: ', result.conversationToken)
     /*
     * YOUR OWN CODE
     * Here, you can add your own process.
