@@ -382,7 +382,30 @@ const englishReply = async (result, message, text, isFB, local, length) => {
     }
   } else if ((result.action && result.action.slug === 'messengerfirst' && result.action.done && /\+/.test(result.memory.tel.raw)) || (result.entities && result.entities.choix1 && /\+/.test(result.memory.tel.raw))) {
     result.replies.forEach((replyContent, i) => {
-      message.addReply({ type: 'text', content: replyContent })
+      if (i < length) {
+        message.addReply({ type: 'text', content: replyContent })
+      } else {
+        message.addReply({
+          type: 'quickReplies',
+          content: {
+            title: 'Voulez vous recevoir de la pub? Si oui, a quelle date?',
+            buttons: [
+              {
+                title: 'non',
+                value: 'jamais'
+              },
+              {
+                title: 'tout les 15 jours',
+                value: 'tout les 15'
+              },
+              {
+                title: 'tout les mois',
+                value: 'tout les 30'
+              }
+            ]
+          }
+        })
+      }
     })
     if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
       console.log('enter')
