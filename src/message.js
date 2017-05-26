@@ -90,9 +90,8 @@ const replyMessage = async (message) => {
     } else {
       loacalLanguage = 'en'
     }
-    console.log('loacl: ', local)
+    console.log('local: ', local)
     console.log('loacalLanguage: ', loacalLanguage)
-    console.log(result.replies.length)
     const length = result.replies.length - 1
 
     console.log('conv: ', result.conversationToken)
