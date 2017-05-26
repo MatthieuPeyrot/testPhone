@@ -384,7 +384,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
             buttons: [
               {
                 title: 'non',
-                value: 'jamais'
+                value: 'pas une seule fois'
               },
               {
                 title: 'tout les 15 jours',
