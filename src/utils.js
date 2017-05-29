@@ -157,9 +157,6 @@ export const updateFireBot2 = (uuid, type, time) => {
         }),
         databaseURL: process.env.FIREBASE_URL
       })
-      console.log('value: ', time, ' type: ', typeof time)
-      console.log('type: ', type, ' type: ', typeof type)
-      console.log('uuid: ', uuid, ' type: ', typeof uuid)
       const db = admin.database()
       const ref = db.ref('/Services')
       ref.child(uuid).orderByChild('type').equalTo(type).once('value', (data) => {
@@ -168,7 +165,6 @@ export const updateFireBot2 = (uuid, type, time) => {
           var id = Object.keys(obj)[0]
           obj[id].pub = time
           obj = obj[id]
-          console.log(obj)
           ref.child(uuid).child(id).set(obj)
         }
         db.goOffline()

@@ -380,7 +380,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
         message.addReply({
           type: 'quickReplies',
           content: {
-            title: 'Voulez vous recevoir de la pub? Si oui, a quelle date?',
+            title: 'Voulez vous recevoir de la pub? Si oui, à quelle date?',
             buttons: [
               {
                 title: 'non',
