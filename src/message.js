@@ -89,7 +89,7 @@ const replyMessage = async (message) => {
     } else {
       loacalLanguage = 'en'
     }
-    // console.log('local: ', local)
+    console.log('local: ', local)
     console.log('loacalLanguage: ', loacalLanguage)
     const length = result.replies.length - 1
 
