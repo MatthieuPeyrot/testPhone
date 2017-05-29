@@ -46,7 +46,6 @@ const replyMessage = async (message) => {
   request.converseText(text, { conversationToken: senderId })
   .then(async result => {
     if (!local && result.memory && result.memory.loc && result.memory.loc.formatted) {
-      console.log(result.memory.loc.formatted.toLowerCase())
       switch (result.memory.loc.formatted.toLowerCase()) {
         case 'france':
         case 'francia':
