@@ -401,7 +401,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
     })
     if (text.toLocaleLowerCase() === 'our bot' || text.toLocaleLowerCase() === 'notre bot') {
       try {
-        await updateFireBot({name: (isFB ? 'facebook' : 'slack') + '-fr', type: (isFB ? 'facebook' : 'slack'), access: (isFB ? [message.conversationId] : [message.conversationId, message.chatId])}, result.memory.tel.value)
+        await updateFireBot({name: (isFB ? 'facebook' : 'slack') + '-fr', type: (isFB ? 'facebook' : 'slack'), access: (isFB ? [message.conversationId, message.senderId] : [message.conversationId, message.chatId])}, result.memory.tel.value)
       } catch (e) {
         console.log(e)
       }
