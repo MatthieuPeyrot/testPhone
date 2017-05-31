@@ -17,8 +17,8 @@ import {bot} from './bot'
 // import mysql from 'mysql'
 import {deleteConv, getFireNumber, updateFireBot, getFireBot, updateFireBot2} from './utils'
 
-const PNF = require('google-libphonenumber').PhoneNumberFormat
-const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
+// const PNF = require('google-libphonenumber').PhoneNumberFormat
+// const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 require('./config')
 
@@ -59,7 +59,7 @@ if (!process.env.REQUEST_TOKEN.length) {
       // const service = await getFireBot('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', '1696871486992920')
       // console.log(service)
 
-      console.log(phoneUtil.getRegionCodeForNumber(phoneUtil.parse('+33761391453', '')))
+      // console.log(phoneUtil.getRegionCodeForNumber(phoneUtil.parse('+33761391453', '')))
       console.log(result)
     } catch (e) {
       console.log(e)
