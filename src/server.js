@@ -14,7 +14,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import {bot} from './bot'
-// import mysql from 'mysql'
+import mysql from 'mysql'
 import {deleteConv, getFireNumber, updateFireBot, getFireBot, updateFireBot2} from './utils'
 
 const PNF = require('google-libphonenumber').PhoneNumberFormat
@@ -22,7 +22,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 require('./config')
 
-// const connection = mysql.createConnection(process.env.SQL_HOST)
+const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -46,12 +46,18 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), async () => {
-    // connection.query('SELECT transcriptions FROM UserServices', function (error, results, fields) {
+    // connection.query('UPDATE Users SET language="fr-FR" WHERE phone = \+33761391453 ', function (error, results, fields) {
     //   if (error) console.error(error)
     //   if (results) {
     //     console.log(results)
     //   }
     // })
+    connection.query('SELECT * FROM Users where phone = \+33761391453', function (error, results, fields) {
+      if (error) console.error(error)
+      if (results) {
+        console.log(results)
+      }
+    })
     try {
       // const result = await getFireNumber('+33761391453')
       // await updateFireBot({name: 'bot', type: 'facebook-fr', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
