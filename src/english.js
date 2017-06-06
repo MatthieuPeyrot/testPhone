@@ -87,6 +87,7 @@ const englishReply = async (result, message, text, isFB, local, length) => {
             message.addReply({
               type: 'quickReplies',
               content: {
+                title: '',
                 buttons: [
                   {
                     title: 'Spain',
