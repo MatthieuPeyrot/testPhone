@@ -101,7 +101,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
               }
             })
           }
-          console.log(message.replies.length)
+          console.log(JSON.stringify(message, 2, null))
         }
       })
     } else {
