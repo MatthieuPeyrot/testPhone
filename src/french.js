@@ -11,6 +11,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
           message.addReply({ type: 'text', content: replyContent })
         } else {
           if (isFB) {
+            console.log('fb')
             message.addReply({
               type: 'quickReplies',
               content: {
@@ -100,6 +101,7 @@ const frenchReply = async (result, message, text, isFB, local, length) => {
               }
             })
           }
+          console.log(message.replies.length)
         }
       })
     } else {

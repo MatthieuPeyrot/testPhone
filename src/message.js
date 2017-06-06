@@ -19,7 +19,7 @@ const replyMessage = async (message) => {
 
   console.log('channel: ', message.chatId)
 
-  console.log('message: ', JSON.stringify(message, 2, null))
+  // console.log('message: ', JSON.stringify(message, 2, null))
 
 // TODO: need to integrate language by bdd here for more faster response
 
@@ -94,7 +94,7 @@ const replyMessage = async (message) => {
     console.log('local: ', local)
     console.log('loacalLanguage: ', loacalLanguage)
     const length = result.replies.length - 1
-    console.log('result: ', JSON.stringify(result, 2, null))
+    // console.log('result: ', JSON.stringify(result, 2, null))
 
     /*
     * YOUR OWN CODE
