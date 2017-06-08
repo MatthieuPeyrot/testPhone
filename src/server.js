@@ -16,6 +16,7 @@ import bodyParser from 'body-parser'
 import {bot} from './bot'
 import mysql from 'mysql'
 import {deleteConv, getFireNumber, updateFireBot, getFireBot, updateFireBot2} from './utils'
+import su from 'superagent'
 
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
@@ -59,6 +60,11 @@ if (!process.env.REQUEST_TOKEN.length) {
       }
     })
     try {
+      su
+      .get(`https://api.recast.ai/connect/v1/channels/${'facebook-get-contact-stunning-slackapp-channel'}`)
+      .send()
+      .set('Authorization', `Token ${'process.env.DEV_TOKEN'}`)
+      .end((err, res) => console.log(res.text))
       // const result = await getFireNumber('+33761391453')
       // await updateFireBot({name: 'bot', type: 'facebook-fr', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
       // await updateFireBot2('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', 'facebook', 0)
