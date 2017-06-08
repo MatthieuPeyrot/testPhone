@@ -63,7 +63,7 @@ if (!process.env.REQUEST_TOKEN.length) {
       su
       .get(`https://api.recast.ai/connect/v1/channels/${'facebook-get-contact-stunning-slackapp-channel'}`)
       .send()
-      .set('Authorization', `Token ${'process.env.DEV_TOKEN'}`)
+      .set('Authorization', `Token ${process.env.DEV_TOKEN}`)
       .end((err, res) => console.log(res.text))
       // const result = await getFireNumber('+33761391453')
       // await updateFireBot({name: 'bot', type: 'facebook-fr', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
