@@ -14,16 +14,11 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import {bot} from './bot'
-import mysql from 'mysql'
-import {deleteConv, getFireNumber, updateFireBot, getFireBot, updateFireBot2} from './utils'
-import su from 'superagent'
+import {deleteConv, getFireNumber, getFireBot} from './utils'
 
-const PNF = require('google-libphonenumber').PhoneNumberFormat
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 require('./config')
-
-const connection = mysql.createConnection(process.env.SQL_HOST)
 
 const app = express()
 app.set('port', process.env.PORT || 5000)
@@ -47,32 +42,13 @@ if (!process.env.REQUEST_TOKEN.length) {
   process.exit(0)
 } else {
   app.listen(app.get('port'), async () => {
-    // connection.query('UPDATE Users SET language="fr-FR" WHERE phone = \+33761391453 ', function (error, results, fields) {
-    //   if (error) console.error(error)
-    //   if (results) {
-    //     console.log(results)
-    //   }
-    // })
-    connection.query('SELECT * FROM Users where phone = \+33761391453', function (error, results, fields) {
-      if (error) console.error(error)
-      if (results) {
-        console.log(results)
-      }
-    })
     try {
-      su
-      .get(`https://api.recast.ai/connect/v1/channels/${'facebook-get-contact-stunning-slackapp-channel'}`)
-      .send()
-      .set('Authorization', `Token ${process.env.DEV_TOKEN}`)
-      .end((err, res) => console.log(res.text))
-      // const result = await getFireNumber('+33761391453')
-      // await updateFireBot({name: 'bot', type: 'facebook-fr', access: '6098592f-e819-40a4-96f5-dc4f17b85583'}, 'vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be')
-      // await updateFireBot2('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', 'facebook', 0)
-      // const service = await getFireBot('vm-c642f6f5-bfc8-4b7e-809b-9020d974b0be', '1696871486992920')
-      // console.log(service)
+      const result = await getFireNumber('+33761391453')
+      const service = await getFireBot(result.uuid, '1696871486992920')
+      console.log(service)
 
       console.log(phoneUtil.getRegionCodeForNumber(phoneUtil.parse('+33761391453', '')))
-      // console.log(result)
+      console.log(result)
     } catch (e) {
       console.log(e)
     }
