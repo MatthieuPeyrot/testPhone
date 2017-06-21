@@ -161,7 +161,7 @@ export const updateFireBot2 = (uuid, type, time) => {
         if (data.exists()) {
           var obj = data.val()
           var id = Object.keys(obj)[0]
-          obj[id].pub = time
+          obj[id].pubAccess = time
           obj = obj[id]
           ref.child(uuid).child(id).set(obj)
         }
